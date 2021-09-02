@@ -42,6 +42,7 @@ def printMenu():
     print("4- Clasificar obras de un artista por tecnica")
     print("5- Clasificar las obras por la nacionalidad de sus creadores")
     print("6- Costo para transportar obras de un departamento")
+    print("7- Proponer nueva exposicion")
     print("0- Salir")
 
 catalog = None
