@@ -38,6 +38,8 @@ def newCatalog():
     catalog['obras'] = lt.newList('SINGLE_LINKED')
     return catalog
 
+cat=newCatalog()
+print(cat)
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
 los mismos.
