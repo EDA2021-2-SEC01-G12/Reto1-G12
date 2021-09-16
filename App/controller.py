@@ -20,7 +20,7 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from model import addAuthor
+
 import config as cf
 import model
 import csv
@@ -36,11 +36,11 @@ El controlador se encarga de mediar entre la vista y el modelo.
 
 # Inicialización del Catálogo de libros
 
-def initCatalog():
+def initCatalog(type):
     """
     Llama la funcion de inicializacion del catalogo del modelo.
     """
-    catalog = model.newCatalog()
+    catalog = model.newCatalog(type)
     return catalog
 
 # Funciones para la carga de datos
@@ -49,12 +49,16 @@ def addAuthors(catalog):
     authorsFile= cf.data_dir + "Artists-utf8-small.csv"
     autFile = csv.DictReader(open(authorsFile, encoding='utf-8'))
     for author in autFile:
-        print (author)
-        # model.addAuthor(catalog,author)
+        model.addAuthors(catalog,author)
 
-# autoresSmall=addAuthors(initCatalog())
-# print(autoresSmall)
+def addArtworks (catalog):
+    artworksFile = cf.data_dir + "Artworks-utf8-small.csv"
+    art= csv.DictReader (open(artworksFile, encoding="utf-8"))
+    for line in art:
+        model.addArtworks(catalog,line)
     
 # Funciones de ordenamiento
 
+def sortArtworks(catalogo,muestra):
+    model.sortArtworks(catalogo,muestra)
 # Funciones de consulta sobre el catálogo

@@ -37,16 +37,27 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Lista cronologica de artistas")
-    print("3- Lista cronologica de adquisiciones")
+    print("2- Listar cronologicamente los artistas")
+    print("3- Listar cronologicamente las adquisiciones")
     print("4- Clasificar obras de un artista por tecnica")
     print("5- Clasificar las obras por la nacionalidad de sus creadores")
     print("6- Costo para transportar obras de un departamento")
     print("7- Proponer nueva exposicion")
     print("0- Salir")
 
-catalog = None
-
+def initCatalog(type):
+    return controller.initCatalog(type)
+    
+def printSortResults(sorted_artworks, sample=10): 
+    size = lt.size(sorted_artworks) 
+    if size > sample: 
+        print("Las primeros ", sample, " obras ordenadas por su fecha de adquisición son:") 
+        i=1 
+        while i <= sample: 
+            artwork = lt.getElement(sorted_artworks,i) 
+            print('ID: ' + artwork["ConstituentID"] + ' Fecha: ' + 
+                    artwork['DateAcquired'] ) 
+            i+=1
 """
 Menu principal
 """
@@ -54,12 +65,19 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
+        print("Elija el tipo de estructura en la cual se alamacenarán los datos: \n1. Array List\n2. Single Linked")
+        type=input("")
+        if type =="1":
+            catalog=initCatalog("ARRAY_LIST")
+        else:
+            catalog=initCatalog("SINGLE_LINKED")
         print("Cargando información de los archivos ....")
         controller.addAuthors(catalog)
-
+        controller.addArtworks(catalog)
     elif int(inputs[0]) == 2:
-        pass
-
+        muestra=input("Ingrese el tamaño de la muestra de las obras de arte a ser ordenadas: ")
+        sorted=controller.sortArtworks(catalog,int(muestra))
+        printSortResults(sorted)
     else:
         sys.exit(0)
 sys.exit(0)

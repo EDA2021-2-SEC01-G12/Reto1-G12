@@ -28,19 +28,21 @@
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import selectionsort as se
+from DISClib.Algorithms.Sorting import insertionsort as ins
+from DISClib.Algorithms.Sorting import mergesort as ms
+from DISClib.Algorithms.Sorting import quicksort as qs
 assert cf
 
-def newCatalog():
+def newCatalog(type):
     catalog = {'artistas': None,
                'obras': None}
 
-    catalog['artistas'] = lt.newList('SINGLE_LINKED')
-    catalog['obras'] = lt.newList('SINGLE_LINKED')
+    catalog['artistas'] = lt.newList(type)
+    catalog['obras'] = lt.newList(type,cmpfunction=cmpArtworkByDateAcquired)
     return catalog
 
 
-
-    
 """
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
 los mismos.
@@ -50,10 +52,42 @@ los mismos.
 
 # Funciones para agregar informacion al catalogo
 
+def addAuthors(catalog, author):
+    lt.addLast(catalog["artistas"],author)
+
+def addArtworks (catalog,artwork):
+    lt.addLast(catalog["obras"],artwork)
+
 # Funciones para creacion de datos
 
 # Funciones de consulta
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
+def cmpArtworkByDateAcquired(artwork1, artwork2):
+    art1=(artwork1["DateAcquired"]).split("-")
+    art2=(artwork2["DateAcquired"]).split("-")
+    if int(art1[0]) < int(art2[0]):
+        return 1
+    elif int(art1[0]) == int(art2[0]):
+        if int(art1[1])<int(art2[1]):
+            return 1
+        elif int(art1[1])>int(art2[1]):
+            return -1
+        elif int(art1[1]) == int(art2[1]):
+            if int(art1[2])<int(art2[2]):
+                return 1
+            elif int(art1[2]) == int(art2[2]):
+                return 0
+            else:
+                return -1
+    else:
+        return -1
+
 # Funciones de ordenamiento
+
+def sortArtworks(catalogo,muestra):
+    new=lt.subList(catalogo["obras"],1,muestra)
+    new=new.copy()
+    sorted =ins.sort(new,cmpArtworkByDateAcquired)
+    return sorted
