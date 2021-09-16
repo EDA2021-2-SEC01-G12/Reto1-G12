@@ -32,6 +32,7 @@ from DISClib.Algorithms.Sorting import selectionsort as se
 from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import mergesort as ms
 from DISClib.Algorithms.Sorting import quicksort as qs
+import time 
 assert cf
 
 def newCatalog(type):
@@ -89,5 +90,8 @@ def cmpArtworkByDateAcquired(artwork1, artwork2):
 def sortArtworks(catalogo,muestra):
     new=lt.subList(catalogo["obras"],1,muestra)
     new=new.copy()
+    start_time = time.process_time()
     sorted =ins.sort(new,cmpArtworkByDateAcquired)
-    return sorted
+    stop_time= time.process_time()
+    timeSort= (stop_time-start_time)*1000
+    return timeSort,sorted
