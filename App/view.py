@@ -55,6 +55,7 @@ while True:
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
         print("Cargando información de los archivos ....")
+        controller.addAuthors(catalog)
 
     elif int(inputs[0]) == 2:
         pass
