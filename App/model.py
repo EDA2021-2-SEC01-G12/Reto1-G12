@@ -87,11 +87,11 @@ def cmpArtworkByDateAcquired(artwork1, artwork2):
 
 # Funciones de ordenamiento
 
-def sortArtworks(catalogo,muestra):
+def sortArtworks(catalogo,muestra, tipo):
     new=lt.subList(catalogo["obras"],1,muestra)
     new=new.copy()
     start_time = time.process_time()
-    sorted =ins.sort(new,cmpArtworkByDateAcquired)
+    sorted =tipo.sort(new,cmpArtworkByDateAcquired)
     stop_time= time.process_time()
     timeSort= (stop_time-start_time)*1000
     return timeSort,sorted

@@ -48,7 +48,7 @@ def printMenu():
 def initCatalog(type):
     return controller.initCatalog(type)
     
-def printSortResults(sorted_artworks, sample=10): 
+'''def printSortResults(sorted_artworks, sample=10): 
     size = lt.size(sorted_artworks) 
     if size > sample: 
         print("Las primeros ", sample, " obras ordenadas por su fecha de adquisición son:") 
@@ -57,7 +57,7 @@ def printSortResults(sorted_artworks, sample=10):
             artwork = lt.getElement(sorted_artworks,i) 
             print('ID: ' + artwork["ConstituentID"] + ' Fecha: ' + 
                     artwork['DateAcquired'] ) 
-            i+=1
+            i+=1'''
 """
 Menu principal
 """
@@ -74,10 +74,18 @@ while True:
         print("Cargando información de los archivos ....")
         controller.addAuthors(catalog)
         controller.addArtworks(catalog)
+        print(catalog["artistas"])
     elif int(inputs[0]) == 2:
         muestra=input("Ingrese el tamaño de la muestra de las obras de arte a ser ordenadas: ")
-        sorted=controller.sortArtworks(catalog,int(muestra))
-        printSortResults(sorted)
+        sortType=input("Seleccione el algoritmo de ordenamiento para los datos: \n1. Insertion Sort.\n2. Merge Sort.\n3. Quick Sort.\n4. Shell Sort.\n")
+        if sortType=="1":   
+            sorted=controller.sortArtworks(catalog,int(muestra),"ins")
+        elif sortType=="2":
+            sorted=controller.sortArtworks(catalog,int(muestra),"ms")
+        elif sortType=="3":
+            sorted=controller.sortArtworks(catalog,int(muestra),"qs")
+        else:
+            sorted=controller.sortArtworks(catalog,int(muestra),"sa")
     else:
         sys.exit(0)
 sys.exit(0)
