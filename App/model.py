@@ -62,34 +62,23 @@ def addArtworks (catalog,artwork):
 
 # Funciones de consulta
 
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def cmpArtworkByDateAcquired(artwork1, artwork2):
     art1=(artwork1["DateAcquired"]).split("-")
     art2=(artwork2["DateAcquired"]).split("-")
     if int(art1[0]) < int(art2[0]):
-        return 1
-    elif int(art1[0]) == int(art2[0]):
-        if int(art1[1])<int(art2[1]):
-            return 1
-        elif int(art1[1])>int(art2[1]):
-            return -1
-        elif int(art1[1]) == int(art2[1]):
-            if int(art1[2])<int(art2[2]):
-                return 1
-            elif int(art1[2]) == int(art2[2]):
-                return 0
-            else:
-                return -1
+        return True
     else:
-        return -1
+        False
+    
 
 # Funciones de ordenamiento
 
 def sortArtworks(catalogo,muestra, tipo):
     new=lt.subList(catalogo["obras"],1,muestra)
     new=new.copy()
-    new=new["elements"]
     if tipo=="1":
         tipo=ins
     elif tipo=="2":
@@ -103,3 +92,6 @@ def sortArtworks(catalogo,muestra, tipo):
     stop_time= time.process_time()
     timeSort= (stop_time-start_time)*1000
     return timeSort,sorted
+
+def sortArtists(catalogo,fechaInicio,fechaFin):
+    artistasRango=lt.newList(datastructure="ARRAY_LIST")

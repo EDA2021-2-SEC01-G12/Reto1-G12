@@ -37,11 +37,11 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Listar cronologicamente los artistas")
-    print("3- Listar cronologicamente las adquisiciones")
+    print("2- Listar cronológicamente obras adquiridas por el museo")
+    print("3- Listar artistas nacidos en un rango de años específico")
     print("4- Clasificar obras de un artista por tecnica")
-    print("5- Clasificar las obras por la nacionalidad de sus creadores")
-    print("6- Costo para transportar obras de un departamento")
+    print("5- Clasificar obras por la nacionalidad de sus autores")
+    print("6- Calcular costo para transportar obras de un departamento del museo")
     print("7- Proponer nueva exposicion")
     print("0- Salir")
 
@@ -51,6 +51,10 @@ def initCatalog(type):
 
 def sortArtworks(catalog, muestra, tipo):
     sorted=controller.sortArtworks(catalog,int(muestra),tipo)
+    return sorted
+
+def sortArtists(catalogo,fechaInicio,fechaFin):
+    sorted=controller.sortArtists(catalogo,fechaInicio,fechaFin)
     return sorted
     
 '''def printSortResults(sorted_artworks, sample=10): 
@@ -91,9 +95,11 @@ while True:
         muestra=input("Ingrese el tamaño de la muestra de las obras de arte a ser ordenadas: ")
         sortType=input("Seleccione el algoritmo de ordenamiento para los datos:\n1. Insertion Sort.\n2. Merge Sort.\n3. Quick Sort.\n4. Shell Sort.\n")
         sort=sortArtworks(catalog,muestra,sortType)
-        '''print(newList["elements"][1]["DateAcquired"])'''#para array
-        '''print(newList["first"]["info"]["DateAcquired"])'''#para singlelinked
-        print(sort)
+        newList=sort[1]
+        print(newList)
+    elif int(inputs[0]) ==3:
+        añoInicial=int(input("Ingrese el año inicial del rango: "))
+        añoFinal=int(input("Ingrese el año final del rango: "))
     else:
         sys.exit(0)
 sys.exit(0)

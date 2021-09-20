@@ -61,4 +61,7 @@ def addArtworks (catalog):
 
 def sortArtworks(catalogo,muestra,tipo):
     return model.sortArtworks(catalogo,muestra,tipo)
+
+def sortArtists(catalogo,fechaInicio,fechaFin):
+    return model.sortArtists(catalogo,fechaInicio,fechaFin)
 # Funciones de consulta sobre el catálogo
