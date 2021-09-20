@@ -47,8 +47,13 @@ def printMenu():
 
 def initCatalog(type):
     return controller.initCatalog(type)
+
+
+def sortArtworks(catalog, muestra, tipo):
+    sorted=controller.sortArtworks(catalog,int(muestra),tipo)
+    return sorted
     
-'''def printSortResults(sorted_artworks, sample=10): 
+def printSortResults(sorted_artworks, sample=10): 
     size = lt.size(sorted_artworks) 
     if size > sample: 
         print("Las primeros ", sample, " obras ordenadas por su fecha de adquisición son:") 
@@ -57,7 +62,7 @@ def initCatalog(type):
             artwork = lt.getElement(sorted_artworks,i) 
             print('ID: ' + artwork["ConstituentID"] + ' Fecha: ' + 
                     artwork['DateAcquired'] ) 
-            i+=1'''
+            i+=1
 """
 Menu principal
 """
@@ -67,25 +72,28 @@ while True:
     if int(inputs[0]) == 1:
         print("Elija el tipo de estructura en la cual se alamacenarán los datos: \n1. Array List\n2. Single Linked")
         type=input("")
-        if type =="1":
-            catalog=initCatalog("ARRAY_LIST")
-        else:
-            catalog=initCatalog("SINGLE_LINKED")
+        finish=True
+        while finish:
+            if type =="1":
+                catalog=initCatalog("ARRAY_LIST")
+                finish=False
+            elif type=="2":
+                catalog=initCatalog("SINGLE_LINKED")
+                finish=False
+            else:
+                print(type+" no es una opción válida.\nSeleccione una opción válida")
+                type=input("")
         print("Cargando información de los archivos ....")
         controller.addAuthors(catalog)
         controller.addArtworks(catalog)
-        print(catalog["artistas"])
+        print("Los datos fueron cargados")
     elif int(inputs[0]) == 2:
         muestra=input("Ingrese el tamaño de la muestra de las obras de arte a ser ordenadas: ")
-        sortType=input("Seleccione el algoritmo de ordenamiento para los datos: \n1. Insertion Sort.\n2. Merge Sort.\n3. Quick Sort.\n4. Shell Sort.\n")
-        if sortType=="1":   
-            sorted=controller.sortArtworks(catalog,int(muestra),"ins")
-        elif sortType=="2":
-            sorted=controller.sortArtworks(catalog,int(muestra),"ms")
-        elif sortType=="3":
-            sorted=controller.sortArtworks(catalog,int(muestra),"qs")
-        else:
-            sorted=controller.sortArtworks(catalog,int(muestra),"sa")
+        sortType=input("Seleccione el algoritmo de ordenamiento para los datos:\n1. Insertion Sort.\n2. Merge Sort.\n3. Quick Sort.\n4. Shell Sort.\n")
+        artwOrdenados=lt.getElement(sortArtworks(catalog,muestra,sortType),2)
+        tiempo=lt.getElement(sortArtworks(catalog,muestra,sortType),1)
+        print("El tiempo para ordenar "+muestra+" datos fue de ",tiempo," msg")
+        printSortResults(artwOrdenados)
     else:
         sys.exit(0)
 sys.exit(0)

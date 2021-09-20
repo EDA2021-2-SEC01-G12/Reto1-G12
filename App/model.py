@@ -90,6 +90,14 @@ def cmpArtworkByDateAcquired(artwork1, artwork2):
 def sortArtworks(catalogo,muestra, tipo):
     new=lt.subList(catalogo["obras"],1,muestra)
     new=new.copy()
+    if tipo=="1":
+        tipo=ins
+    elif tipo=="2":
+        tipo=ms
+    elif tipo=="3":
+        tipo=qs
+    else:
+        tipo=sa
     start_time = time.process_time()
     sorted =tipo.sort(new,cmpArtworkByDateAcquired)
     stop_time= time.process_time()

@@ -60,5 +60,5 @@ def addArtworks (catalog):
 # Funciones de ordenamiento
 
 def sortArtworks(catalogo,muestra,tipo):
-    model.sortArtworks(catalogo,muestra,tipo)
+    return model.sortArtworks(catalogo,muestra,tipo)
 # Funciones de consulta sobre el catálogo
