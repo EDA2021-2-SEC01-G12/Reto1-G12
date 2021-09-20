@@ -35,6 +35,13 @@ from DISClib.Algorithms.Sorting import quicksort as qs
 import time 
 assert cf
 
+"""
+Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
+los mismos.
+"""
+
+# Construccion de modelos
+
 def newCatalog(type):
     catalog = {'artistas': None,
                'obras': None}
@@ -42,14 +49,6 @@ def newCatalog(type):
     catalog['artistas'] = lt.newList(type)
     catalog['obras'] = lt.newList(type,cmpfunction=cmpArtworkByDateAcquired)
     return catalog
-
-
-"""
-Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
-los mismos.
-"""
-
-# Construccion de modelos
 
 # Funciones para agregar informacion al catalogo
 
@@ -90,6 +89,7 @@ def cmpArtworkByDateAcquired(artwork1, artwork2):
 def sortArtworks(catalogo,muestra, tipo):
     new=lt.subList(catalogo["obras"],1,muestra)
     new=new.copy()
+    new=new["elements"]
     if tipo=="1":
         tipo=ins
     elif tipo=="2":

@@ -53,7 +53,7 @@ def sortArtworks(catalog, muestra, tipo):
     sorted=controller.sortArtworks(catalog,int(muestra),tipo)
     return sorted
     
-def printSortResults(sorted_artworks, sample=10): 
+'''def printSortResults(sorted_artworks, sample=10): 
     size = lt.size(sorted_artworks) 
     if size > sample: 
         print("Las primeros ", sample, " obras ordenadas por su fecha de adquisición son:") 
@@ -62,7 +62,7 @@ def printSortResults(sorted_artworks, sample=10):
             artwork = lt.getElement(sorted_artworks,i) 
             print('ID: ' + artwork["ConstituentID"] + ' Fecha: ' + 
                     artwork['DateAcquired'] ) 
-            i+=1
+            i+=1'''
 """
 Menu principal
 """
@@ -90,10 +90,10 @@ while True:
     elif int(inputs[0]) == 2:
         muestra=input("Ingrese el tamaño de la muestra de las obras de arte a ser ordenadas: ")
         sortType=input("Seleccione el algoritmo de ordenamiento para los datos:\n1. Insertion Sort.\n2. Merge Sort.\n3. Quick Sort.\n4. Shell Sort.\n")
-        artwOrdenados=lt.getElement(sortArtworks(catalog,muestra,sortType),2)
-        tiempo=lt.getElement(sortArtworks(catalog,muestra,sortType),1)
-        print("El tiempo para ordenar "+muestra+" datos fue de ",tiempo," msg")
-        printSortResults(artwOrdenados)
+        sort=sortArtworks(catalog,muestra,sortType)
+        '''print(newList["elements"][1]["DateAcquired"])'''#para array
+        '''print(newList["first"]["info"]["DateAcquired"])'''#para singlelinked
+        print(sort)
     else:
         sys.exit(0)
 sys.exit(0)
