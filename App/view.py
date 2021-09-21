@@ -104,7 +104,6 @@ while True:
         sortType=input("Seleccione el algoritmo de ordenamiento para los datos:\n1. Insertion Sort.\n2. Merge Sort.\n3. Quick Sort.\n4. Shell Sort.\n")
         sort=sortArtworks(catalog,muestra1,sortType)
         newList=sort[1]
-        #print(newList)
         tiempo=sort[0]
         print("El tiempo tardado en ordenar ",muestra1," elementos fue de ",tiempo," msg")
     elif int(inputs[0]) ==3:
