@@ -92,9 +92,19 @@ while True:
         controller.addArtworks(catalog)
         print("Los datos fueron cargados")
     elif int(inputs[0]) == 2:
-        muestra=input("Ingrese el tamaño de la muestra de las obras de arte a ser ordenadas: ")
+        muestra=print("Ingrese el tamaño de la muestra de las obras de arte a ser ordenadas:")
+        muestra1=int(input(""))
+        terminado=True
+        while terminado:
+            if muestra1> int(lt.size(catalog["obras"])):
+                print("El número ingresado supera el número de datos cargados, por favor ingrese un numero válido: ")
+                muestra1=int(input(""))
+            else:
+                terminado=False
         sortType=input("Seleccione el algoritmo de ordenamiento para los datos:\n1. Insertion Sort.\n2. Merge Sort.\n3. Quick Sort.\n4. Shell Sort.\n")
-        sort=sortArtworks(catalog,muestra,sortType)
+        sort=sortArtworks(catalog,muestra1,sortType)
+        tiempo=sort[0]
+        print("El tiempo tardado en ordenar ",muestra1," elementos fue de ",tiempo," msg")
         newList=sort[1]
         print(newList)
     elif int(inputs[0]) ==3:

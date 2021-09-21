@@ -66,8 +66,14 @@ def addArtworks (catalog,artwork):
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def cmpArtworkByDateAcquired(artwork1, artwork2):
-    art1=(artwork1["DateAcquired"]).split("-")
-    art2=(artwork2["DateAcquired"]).split("-")
+    if artwork1["DateAcquired"]!="":
+        art1=(artwork1["DateAcquired"]).split("-")
+    else:
+        art1="0"
+    if artwork2["DateAcquired"]!="":
+        art2=(artwork2["DateAcquired"]).split("-")
+    else:
+        art2="0" 
     if int(art1[0]) < int(art2[0]):
         return True
     else:
