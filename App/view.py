@@ -103,10 +103,10 @@ while True:
                 terminado=False
         sortType=input("Seleccione el algoritmo de ordenamiento para los datos:\n1. Insertion Sort.\n2. Merge Sort.\n3. Quick Sort.\n4. Shell Sort.\n")
         sort=sortArtworks(catalog,muestra1,sortType)
-        tiempo=sort[0]
-        print("El tiempo tardado en ordenar ",muestra1," elementos fue de ",tiempo," msg")
         newList=sort[1]
         print(newList)
+        tiempo=sort[0]
+        print("El tiempo tardado en ordenar ",muestra1," elementos fue de ",tiempo," msg")
     elif int(inputs[0]) ==3:
         añoInicial=int(input("Ingrese el año inicial del rango: "))
         añoFinal=int(input("Ingrese el año final del rango: "))
