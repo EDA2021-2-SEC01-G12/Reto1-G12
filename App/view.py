@@ -57,7 +57,7 @@ def sortArtists(catalogo,fechaInicio,fechaFin):
     sorted=controller.sortArtists(catalogo,fechaInicio,fechaFin)
     return sorted
     
-'''def printSortResults(sorted_artworks, sample=10): 
+def printSortResults(sorted_artworks, sample=10): 
     size = lt.size(sorted_artworks) 
     if size > sample: 
         print("Las primeros ", sample, " obras ordenadas por su fecha de adquisición son:") 
@@ -66,7 +66,7 @@ def sortArtists(catalogo,fechaInicio,fechaFin):
             artwork = lt.getElement(sorted_artworks,i) 
             print('ID: ' + artwork["ConstituentID"] + ' Fecha: ' + 
                     artwork['DateAcquired'] ) 
-            i+=1'''
+            i+=1
 """
 Menu principal
 """
@@ -104,7 +104,7 @@ while True:
         sortType=input("Seleccione el algoritmo de ordenamiento para los datos:\n1. Insertion Sort.\n2. Merge Sort.\n3. Quick Sort.\n4. Shell Sort.\n")
         sort=sortArtworks(catalog,muestra1,sortType)
         newList=sort[1]
-        print(newList)
+        #print(newList)
         tiempo=sort[0]
         print("El tiempo tardado en ordenar ",muestra1," elementos fue de ",tiempo," msg")
     elif int(inputs[0]) ==3:
