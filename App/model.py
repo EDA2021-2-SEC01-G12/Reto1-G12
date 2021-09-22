@@ -25,6 +25,7 @@
  """
 
 
+from DISClib.DataStructures.arraylist import getElement
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
@@ -42,12 +43,12 @@ los mismos.
 
 # Construccion de modelos
 
-def newCatalog(type):
+def newCatalog():
     catalog = {'artistas': None,
                'obras': None}
 
-    catalog['artistas'] = lt.newList(type)
-    catalog['obras'] = lt.newList(type,cmpfunction=cmpArtworkByDateAcquired)
+    catalog['artistas'] = lt.newList(datastructure="ARRAY_LIST")
+    catalog['obras'] = lt.newList(datastructure="ARRAY_LIST")
     return catalog
 
 # Funciones para agregar informacion al catalogo
@@ -61,6 +62,24 @@ def addArtworks (catalog,artwork):
 # Funciones para creacion de datos
 
 # Funciones de consulta
+
+def artistasEnRango(catalogo,fecha1,fecha2):
+    posArtista=None
+    contador=0
+    i=1
+    segundo=True
+    while i!= lt.size(catalogo) and segundo:
+        if fecha1<= int(lt.getElement(catalogo,i)["BeginDate"]) <=fecha2:
+            contador+=1
+        if ((int(lt.getElement(catalogo,i)["BeginDate"]))==fecha1) and posArtista==None:
+            posArtista=lt.isPresent(catalogo,(lt.getElement(catalogo,i)))
+        if (int(lt.getElement(catalogo,i)["BeginDate"]))==fecha2:
+            contador+=1
+            if (lt.getElement(catalogo,i+1)["BeginDate"])!=fecha2:
+                segundo=False
+        i+=1
+    ltArtistasRango=lt.subList(catalogo,posArtista,contador)
+    return ltArtistasRango
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -78,9 +97,18 @@ def cmpArtworkByDateAcquired(artwork1, artwork2):
         return True
     else:
         False
+
+def cmpArtistByBirthDate(artista1,artista2):
+    artista1=int(artista1["BeginDate"])
+    artista2=int(artista2["BeginDate"])
+    if artista1 < artista2:
+        return True
+    else:
+        return False
+
     
 
-# Funciones de ordenamiento
+# Funciones de ordenamiento    
 
 def sortArtworks(catalogo,muestra, tipo):
     new=lt.subList(catalogo["obras"],1,muestra)
@@ -99,5 +127,6 @@ def sortArtworks(catalogo,muestra, tipo):
     timeSort= (stop_time-start_time)*1000
     return timeSort,sorted
 
-def sortArtists(catalogo,fechaInicio,fechaFin):
-    artistasRango=lt.newList(datastructure="ARRAY_LIST")
+def sortArtists(catalogo):
+    artistasOrdenados=ms.sort(catalogo["artistas"],cmpArtistByBirthDate)
+    return artistasOrdenados

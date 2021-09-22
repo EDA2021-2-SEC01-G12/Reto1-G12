@@ -37,26 +37,25 @@ operación solicitada
 def printMenu():
     print("Bienvenido")
     print("1- Cargar información en el catálogo")
-    print("2- Listar cronológicamente obras adquiridas por el museo")
-    print("3- Listar artistas nacidos en un rango de años específico")
+    print("2- Listar artistas nacidos en un rango de años específico")
+    print("3- Listar cronológicamente obras adquiridas por el museo")
     print("4- Clasificar obras de un artista por tecnica")
     print("5- Clasificar obras por la nacionalidad de sus autores")
     print("6- Calcular costo para transportar obras de un departamento del museo")
     print("7- Proponer nueva exposicion")
     print("0- Salir")
 
-def initCatalog(type):
-    return controller.initCatalog(type)
+def initCatalog():
+    return controller.initCatalog()
 
 
 def sortArtworks(catalog, muestra, tipo):
     sorted=controller.sortArtworks(catalog,int(muestra),tipo)
     return sorted
 
-def sortArtists(catalogo,fechaInicio,fechaFin):
-    sorted=controller.sortArtists(catalogo,fechaInicio,fechaFin)
-    return sorted
-    
+def artistasEnRango(catalogo,fecha1, fecha2):
+    return controller.artistasEnRango(catalogo,fecha1,fecha2)
+
 def printSortResults(sorted_artworks, sample=10): 
     size = lt.size(sorted_artworks) 
     if size > sample: 
@@ -74,7 +73,32 @@ while True:
     printMenu()
     inputs = input('Seleccione una opción para continuar\n')
     if int(inputs[0]) == 1:
-        print("Elija el tipo de estructura en la cual se alamacenarán los datos: \n1. Array List\n2. Single Linked")
+        catalogo=initCatalog()
+        print("Cargando información de los archivos ....")
+        controller.addAuthors(catalogo)
+        controller.addArtworks(catalogo)
+        print("Los datos fueron cargados")
+    elif int(inputs[0]) == 2:
+        print("Ordenando artistas por fecha de nacimiento...\n")
+        sortedArtists=controller.sortArtists(catalogo)
+        añoInicial=int(input("Ingrese el año inicial del rango: "))
+        añoFinal=int(input("Ingrese el año final del rango: "))
+        newList=artistasEnRango(sortedArtists,añoInicial,añoFinal)
+        print(newList)
+    elif int(inputs[0]) ==3:
+        pass
+    else:
+        sys.exit(0)
+sys.exit(0)
+
+
+
+
+
+#codigo pa despues
+
+
+'''print("Elija el tipo de estructura en la cual se alamacenarán los datos: \n1. Array List\n2. Single Linked")
         type=input("")
         finish=True
         while finish:
@@ -86,13 +110,10 @@ while True:
                 finish=False
             else:
                 print(type+" no es una opción válida.\nSeleccione una opción válida")
-                type=input("")
-        print("Cargando información de los archivos ....")
-        controller.addAuthors(catalog)
-        controller.addArtworks(catalog)
-        print("Los datos fueron cargados")
-    elif int(inputs[0]) == 2:
-        muestra=print("Ingrese el tamaño de la muestra de las obras de arte a ser ordenadas:")
+                type=input("")'''
+
+
+'''muestra=print("Ingrese el tamaño de la muestra de las obras de arte a ser ordenadas:")
         muestra1=int(input(""))
         terminado=True
         while terminado:
@@ -105,10 +126,4 @@ while True:
         sort=sortArtworks(catalog,muestra1,sortType)
         newList=sort[1]
         tiempo=sort[0]
-        print("El tiempo tardado en ordenar ",muestra1," elementos fue de ",tiempo," msg")
-    elif int(inputs[0]) ==3:
-        añoInicial=int(input("Ingrese el año inicial del rango: "))
-        añoFinal=int(input("Ingrese el año final del rango: "))
-    else:
-        sys.exit(0)
-sys.exit(0)
+        print("El tiempo tardado en ordenar ",muestra1," elementos fue de ",tiempo," msg")'''
