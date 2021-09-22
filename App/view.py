@@ -60,7 +60,7 @@ def printSortResults(sortedArtist):
     i=1
     j=-4
     artistas=True
-    print("Los primeros y últimos tres artistas dentro dentro de ese rango son: \n")
+    print("Los primeros y últimos tres artistas dentro dentro de ese rango son: \n_______________________________\n")
     while artistas:
         if i!=4:
             artista=lt.getElement(sortedArtist,i)
