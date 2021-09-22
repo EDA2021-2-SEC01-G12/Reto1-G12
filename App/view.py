@@ -123,7 +123,9 @@ sys.exit(0)
 
 #preguntas pal profe
 '''-En que formato toca preguntar la fecha del req 2
--Existen datos incompletos? es decir datos solo con año'''
+-Existen datos incompletos? es decir datos solo con año
+'''
+
 
 
 #codigo pa despues
