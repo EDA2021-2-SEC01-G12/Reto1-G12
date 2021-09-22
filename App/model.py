@@ -64,21 +64,20 @@ def addArtworks (catalog,artwork):
 # Funciones de consulta
 
 def artistasEnRango(catalogo,fecha1,fecha2):
+    cat=sortArtists(catalogo)
     posArtista=None
     contador=0
     i=1
     segundo=True
-    while i!= lt.size(catalogo) and segundo:
-        if fecha1<= int(lt.getElement(catalogo,i)["BeginDate"]) <=fecha2:
+    while i<= lt.size(cat) and segundo:
+        if fecha1<= int((lt.getElement(cat,i))["BeginDate"]) and int((lt.getElement(cat,i))["BeginDate"])<=fecha2:
             contador+=1
-        if ((int(lt.getElement(catalogo,i)["BeginDate"]))==fecha1) and posArtista==None:
-            posArtista=lt.isPresent(catalogo,(lt.getElement(catalogo,i)))
-        if (int(lt.getElement(catalogo,i)["BeginDate"]))==fecha2:
-            contador+=1
-            if (lt.getElement(catalogo,i+1)["BeginDate"])!=fecha2:
-                segundo=False
+        if ((int((lt.getElement(cat,i))["BeginDate"]))>=fecha1) and posArtista==None:
+            posArtista=i
+        if (int((lt.getElement(cat,i))["BeginDate"]))>fecha2:
+            segundo=False
         i+=1
-    ltArtistasRango=lt.subList(catalogo,posArtista,contador)
+    ltArtistasRango=lt.subList(cat,posArtista,contador)
     return ltArtistasRango
 
 
@@ -128,5 +127,6 @@ def sortArtworks(catalogo,muestra, tipo):
     return timeSort,sorted
 
 def sortArtists(catalogo):
-    artistasOrdenados=ms.sort(catalogo["artistas"],cmpArtistByBirthDate)
+    cat=catalogo["artistas"]
+    artistasOrdenados=ms.sort(cat,cmpArtistByBirthDate)
     return artistasOrdenados

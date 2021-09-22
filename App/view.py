@@ -56,16 +56,29 @@ def sortArtworks(catalog, muestra, tipo):
 def artistasEnRango(catalogo,fecha1, fecha2):
     return controller.artistasEnRango(catalogo,fecha1,fecha2)
 
-def printSortResults(sorted_artworks, sample=10): 
-    size = lt.size(sorted_artworks) 
-    if size > sample: 
-        print("Las primeros ", sample, " obras ordenadas por su fecha de adquisición son:") 
-        i=1 
-        while i <= sample: 
-            artwork = lt.getElement(sorted_artworks,i) 
-            print('ID: ' + artwork["ConstituentID"] + ' Fecha: ' + 
-                    artwork['DateAcquired'] ) 
+def printSortResults(sortedArtist): 
+    i=1
+    j=-4
+    artistas=True
+    print("Los primeros y últimos tres artistas dentro dentro de ese rango son: \n")
+    while artistas:
+        if i!=4:
+            artista=lt.getElement(sortedArtist,i)
             i+=1
+        else:
+            artista=lt.getElement(sortedArtist,j)
+            j+=1
+            if j==-1:
+                artistas=False
+        nombre,genero,nacionalidad,nacido,fallece=artista["DisplayName"],artista["Gender"],artista["Nationality"],artista["BeginDate"],artista["EndDate"]
+        if nacido=="0":
+            nacido="Desconocida"
+        if fallece=="0":
+            fallece="Desconocida"
+        if genero=="":
+            genero="No reporta"
+        print("Nombre: "+nombre+"\nGenero: "+genero+"\nFecha de nacimiento: "+nacido+"\nNacionalidad: "+nacionalidad+"\nFecha de fallemiento: "+fallece+"\n_______________________________\n")
+        
 """
 Menu principal
 """
@@ -80,11 +93,11 @@ while True:
         print("Los datos fueron cargados")
     elif int(inputs[0]) == 2:
         print("Ordenando artistas por fecha de nacimiento...\n")
-        sortedArtists=controller.sortArtists(catalogo)
-        añoInicial=int(input("Ingrese el año inicial del rango: "))
-        añoFinal=int(input("Ingrese el año final del rango: "))
-        newList=artistasEnRango(sortedArtists,añoInicial,añoFinal)
-        print(newList)
+        fechaInicial=int(input("Ingrese el año inicial del rango: "))
+        fechaFinal=int(input("Ingrese el año final del rango: "))
+        newList=artistasEnRango(catalogo,fechaInicial,fechaFinal)
+        print("\nEntre ",fechaInicial," y ",fechaFinal," nacieron ",lt.size(newList),"artistas\n")
+        printSortResults(newList)
     elif int(inputs[0]) ==3:
         pass
     else:
