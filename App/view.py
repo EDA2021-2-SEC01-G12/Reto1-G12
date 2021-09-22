@@ -56,6 +56,9 @@ def sortArtworks(catalog, muestra, tipo):
 def artistasEnRango(catalogo,fecha1, fecha2):
     return controller.artistasEnRango(catalogo,fecha1,fecha2)
 
+def obrasPorDateAcquired(catalogo, fechaInicio, fechaFin):
+    return controller.obrasPorDateAcquired(catalogo, fechaInicio, fechaFin)
+
 def printSortResults(sortedArtist): 
     i=1
     j=-4
@@ -99,13 +102,28 @@ while True:
         print("\nEntre ",fechaInicial," y ",fechaFinal," nacieron ",lt.size(newList),"artistas\n")
         printSortResults(newList)
     elif int(inputs[0]) ==3:
-        pass
+        anio1=input("Ingrese el año inicial en formato de 4 dígitos:\n")
+        mes1=input("Ingrese el mes inicial en formato de 2 dígitos:\n")
+        dia1=input("Ingrese el dia inicial en formato de 2 dígitos:\n")
+        anio2=input("Ingrese el año final en formato de 4 dígitos:\n")
+        mes2=input("Ingrese el mes final en formato de 2 dígitos:\n")
+        dia2=input("Ingrese el dia final en formato de 2 dígitos:\n")
+        fecha1=anio1+"-"+mes1+"-"+dia1
+        fecha2=anio2+"-"+mes2+"-"+dia2
+        obrasSorted=obrasPorDateAcquired(catalogo,fecha1,fecha2)
+        print(obrasSorted)
+    elif int(inputs[0])==4:
+        date="0-0-0"
+        date=int(date.replace("-",""))
+        print(date)
     else:
         sys.exit(0)
 sys.exit(0)
 
 
-
+#preguntas pal profe
+'''-En que formato toca preguntar la fecha del req 2
+-Existen datos incompletos? es decir datos solo con año'''
 
 
 #codigo pa despues

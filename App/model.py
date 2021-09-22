@@ -80,22 +80,64 @@ def artistasEnRango(catalogo,fecha1,fecha2):
     ltArtistasRango=lt.subList(cat,posArtista,contador)
     return ltArtistasRango
 
+def obrasPorDateAcquired(catalogo, fechaInicio:str, fechaFin:str):
+    cat=sortArtworks(catalogo)
+    fechaInicio=int(fechaInicio.replace("-","")) 
+    fechaFin=int(fechaFin.replace("-",""))
+    posObra=None
+    contador=0
+    i=1
+    ultimo=True
+    while i<=lt.size(cat) and ultimo:
+        dateAcquired=(lt.getElement(cat,i)["DateAcquired"])
+        if dateAcquired=="":
+            dateAcquired="0-0-0"
+        dateAcquired=int(dateAcquired.replace("-",""))
+        if fechaInicio<= dateAcquired and dateAcquired<=fechaFin:
+            contador+=1
+        if (dateAcquired>=fechaInicio) and posObra==None:
+            posObra=i
+        if dateAcquired>fechaFin:
+            segundo=False
+        i+=1
+    ltObrasSorted=lt.subList(cat,posObra,contador)
+    return ltObrasSorted
+
+
+
+
+#"2018-09-05"
+#"2019-06-04"
+#20180905
+#20190604
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def cmpArtworkByDateAcquired(artwork1, artwork2):
-    if artwork1["DateAcquired"]!="":
+    if artwork1["DateAcquired"]=="":
+        art1="0-0-0"
+        art1=art1.split("-")
+    else:
         art1=(artwork1["DateAcquired"]).split("-")
+    if artwork2["DateAcquired"]=="":
+        art2="0-0-0"
+        art2=art2.split("-")
     else:
-        art1="0"
-    if artwork2["DateAcquired"]!="":
         art2=(artwork2["DateAcquired"]).split("-")
-    else:
-        art2="0" 
     if int(art1[0]) < int(art2[0]):
         return True
+    elif int(art1[0]) == int(art2[0]):
+        if int(art1[1]) < int(art2[1]):
+            return True
+        elif int(art1[1]) == int(art2[1]):
+            if int(art1[2]) < int(art2[2]):
+                return True
+            else:
+                return False
+        else:
+            return False
     else:
-        False
+        return False
 
 def cmpArtistByBirthDate(artista1,artista2):
     artista1=int(artista1["BeginDate"])
@@ -109,24 +151,45 @@ def cmpArtistByBirthDate(artista1,artista2):
 
 # Funciones de ordenamiento    
 
-def sortArtworks(catalogo,muestra, tipo):
-    new=lt.subList(catalogo["obras"],1,muestra)
-    new=new.copy()
-    if tipo=="1":
-        tipo=ins
-    elif tipo=="2":
-        tipo=ms
-    elif tipo=="3":
-        tipo=qs
-    else:
-        tipo=sa
-    start_time = time.process_time()
-    sorted =tipo.sort(new,cmpArtworkByDateAcquired)
-    stop_time= time.process_time()
-    timeSort= (stop_time-start_time)*1000
-    return timeSort,sorted
+def sortArtworks(catalogo):
+    cat=catalogo["obras"]
+    obrasOrdenadas =ms.sort(cat,cmpArtworkByDateAcquired)
+    return obrasOrdenadas
 
 def sortArtists(catalogo):
     cat=catalogo["artistas"]
     artistasOrdenados=ms.sort(cat,cmpArtistByBirthDate)
     return artistasOrdenados
+
+
+
+
+#codigo pa despues
+'''def sortArtworks(catalogo):
+    new=lt.subList(catalogo["obras"],1,muestra)
+    new=new.copy()
+    start_time = time.process_time()
+    sorted =ms.sort(new,cmpArtworkByDateAcquired)
+    stop_time= time.process_time()
+    timeSort= (stop_time-start_time)*1000
+    return timeSort,sorted'''
+
+
+
+'''while i<=lt.size(cat) and ultimo:
+        dateAcquired=(lt.getElement(cat,i)["DateAcquired"])
+        if dateAcquired=="":
+            dateAcquired="0-0-0"
+        dateAcquired=dateAcquired.split("-")
+        if int(fechaInicio[0])<= int(dateAcquired[0]):
+            if int(fechaInicio[1])<= int(dateAcquired[1]) :
+                if int(fechaInicio[2])<= int(dateAcquired[2]) :
+                    if int(dateAcquired[0]) <= int(fechaFin[0]): 
+                        if int(dateAcquired[1]) <= int(fechaFin[1]):
+                            if int(dateAcquired[2]) <= int(fechaFin[2]):
+                                contador +=1
+        if ((int(dateAcquired[0])>=int(fechaInicio[0]))) and (int(dateAcquired[1])>=int(fechaInicio[1])) and ((int(dateAcquired[2])>=int(fechaInicio[2]))) and posObra==None: 
+            posObra=i
+        if int(dateAcquired[0]) > int(fechaFin[0]) and int(dateAcquired[1]) > int(fechaFin[1]) and int(dateAcquired[2]) > int(fechaFin[2]):
+            ultimo=False
+        i+=1'''

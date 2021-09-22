@@ -66,3 +66,6 @@ def sortArtworks(catalogo,muestra,tipo):
 
 def artistasEnRango(catalogo,fecha1,fecha2):
     return model.artistasEnRango(catalogo,fecha1,fecha2)
+
+def obrasPorDateAcquired(catalogo, fechaInicio, fechaFin):
+    return model.obrasPorDateAcquired(catalogo, fechaInicio, fechaFin)
