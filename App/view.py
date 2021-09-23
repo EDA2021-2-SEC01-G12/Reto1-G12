@@ -63,7 +63,7 @@ def printSortResults(sortedArtist):
     i=1
     j=-4
     artistas=True
-    print("Los primeros y últimos tres artistas dentro dentro de ese rango son: \n_______________________________\n")
+    print("Los primeros y últimos tres artistas dentro de ese rango son: \n_______________________________\n")
     while artistas:
         if i!=4:
             artista=lt.getElement(sortedArtist,i)
@@ -81,7 +81,41 @@ def printSortResults(sortedArtist):
         if genero=="":
             genero="No reporta"
         print("Nombre: "+nombre+"\nGenero: "+genero+"\nFecha de nacimiento: "+nacido+"\nNacionalidad: "+nacionalidad+"\nFecha de fallemiento: "+fallece+"\n_______________________________\n")
-        
+
+def printArtworksResults(sortedArtworks):
+    compradas=0
+    z=1
+    while z!=lt.size(sortedArtworks):
+        credit=lt.getElement(sortedArtworks,z)["CreditLine"]
+        if credit!="":
+            if "purchase" in (str(credit)).lower():
+                compradas+=1
+        z+=1
+    i=1
+    j=-4
+    obras=True
+    print("El número de obras que fueron compradas por el museo son ",compradas)
+    print("Las primeras y últimas tres obras dentro de ese rango son: \n_______________________________\n")
+    while obras:
+        if i!=4:
+            obra=lt.getElement(sortedArtworks,i)
+            i+=1
+        else:
+            obra=lt.getElement(sortedArtworks,j)
+            j+=1
+            if j==-1:
+                obras=False
+        titulo,fecha,medio,dimensiones=obra["Title"],obra["Date"],obra["Medium"],obra["Dimensions"]
+        if fecha=="":
+            fecha="No se conoce la fecha de creación"
+        if medio=="":
+            medio="No se conoce el medio"
+        if dimensiones=="":
+            dimensiones="No se conocen las dimensiones de la obras"
+        print("Titulo: "+titulo+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
+
+
+
 """
 Menu principal
 """
@@ -102,6 +136,7 @@ while True:
         print("\nEntre ",fechaInicial," y ",fechaFinal," nacieron ",lt.size(newList),"artistas\n")
         printSortResults(newList)
     elif int(inputs[0]) ==3:
+        print("Ordenando obras por fecha de adquisición..\n")
         anio1=input("Ingrese el año inicial en formato de 4 dígitos:\n")
         mes1=input("Ingrese el mes inicial en formato de 2 dígitos:\n")
         dia1=input("Ingrese el dia inicial en formato de 2 dígitos:\n")
@@ -111,18 +146,27 @@ while True:
         fecha1=anio1+"-"+mes1+"-"+dia1
         fecha2=anio2+"-"+mes2+"-"+dia2
         obrasSorted=obrasPorDateAcquired(catalogo,fecha1,fecha2)
-        print(obrasSorted)
+        print("Entre "+fecha1+" y "+fecha2+" el museo adquirió ",lt.size(obrasSorted)," obras")
+        printArtworksResults(obrasSorted)
     elif int(inputs[0])==4:
-        date="0-0-0"
-        date=int(date.replace("-",""))
-        print(date)
+        element=catalogo["obras"]["elements"][1]["CreditLine"]
+        print("lila" in element.lower())
+    elif int(inputs[0])==5:
+        pass
+    elif int(inputs[0])==6:
+        pass
+    elif int(inputs[0])==7:
+        pass
     else:
         sys.exit(0)
 sys.exit(0)
 
 
 #preguntas pal profe
-'''-En que formato toca preguntar la fecha del req 2
+'''
+-En que formato toca preguntar la fecha del req 2
+-Como se deben imprimir los datos ¿Como lo tenemos o en tabla?
+-A que se refiere con medio
 -Existen datos incompletos? es decir datos solo con año
 '''
 
