@@ -103,13 +103,19 @@ def obrasPorDateAcquired(catalogo, fechaInicio:str, fechaFin:str):
     ltObrasSorted=lt.subList(cat,posObra,contador)
     return ltObrasSorted
 
+def idOfArtist(catalogo):
+    cat=catalogo["artistas"]
+    ids=lt.newList("ARRAY_LIST")
+    i=1
+    while i !=lt.size(cat):
+        nombre=(lt.getElement(cat,i)["DisplayName"]).split(",")
+        nombre=nombre[0]
+        id=lt.getElement(cat,i)["ConstituentID"]
+        dato=(id,nombre)
+        lt.addLast(ids,dato)
+        i+=1
+    return ids
 
-
-
-#"2018-09-05"
-#"2019-06-04"
-#20180905
-#20190604
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 

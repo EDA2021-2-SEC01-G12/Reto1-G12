@@ -59,6 +59,11 @@ def artistasEnRango(catalogo,fecha1, fecha2):
 def obrasPorDateAcquired(catalogo, fechaInicio, fechaFin):
     return controller.obrasPorDateAcquired(catalogo, fechaInicio, fechaFin)
 
+def idOfArtist(catalogo):
+    return controller.idOfArtist(catalogo)
+
+#Funciones para imprimir resultados
+
 def printSortResults(sortedArtist): 
     i=1
     j=-4
@@ -82,7 +87,8 @@ def printSortResults(sortedArtist):
             genero="No reporta"
         print("Nombre: "+nombre+"\nGenero: "+genero+"\nFecha de nacimiento: "+nacido+"\nNacionalidad: "+nacionalidad+"\nFecha de fallemiento: "+fallece+"\n_______________________________\n")
 
-def printArtworksResults(sortedArtworks):
+def printArtworksResults(sortedArtworks,catalogo):
+    ids=idOfArtist(catalogo)
     compradas=0
     z=1
     while z!=lt.size(sortedArtworks):
@@ -105,6 +111,7 @@ def printArtworksResults(sortedArtworks):
             j+=1
             if j==-1:
                 obras=False
+        idArtistasActual=(obra["ConstituentID"]).split(",")
         titulo,fecha,medio,dimensiones=obra["Title"],obra["Date"],obra["Medium"],obra["Dimensions"]
         if fecha=="":
             fecha="No se conoce la fecha de creación"
@@ -191,10 +198,9 @@ while True:
         fecha2=anio2+"-"+mes2+"-"+dia2
         obrasSorted=obrasPorDateAcquired(listaOrdenada,fecha1,fecha2)
         print("Entre "+fecha1+" y "+fecha2+" el museo adquirió ",lt.size(obrasSorted)," obras")
-        printArtworksResults(obrasSorted)
+        printArtworksResults(obrasSorted,catalogo)
     elif int(inputs[0])==4:
-        element=catalogo["obras"]["elements"][1]["CreditLine"]
-        print("lila" in element.lower())
+        pass
     elif int(inputs[0])==5:
         pass
     elif int(inputs[0])==6:
@@ -212,6 +218,7 @@ sys.exit(0)
 -Como se deben imprimir los datos ¿Como lo tenemos o en tabla?
 -A que se refiere con medio
 -Existen datos incompletos? es decir datos solo con año
+-Se puede usar un diccionario para hacer la relacion id-nombre?
 '''
 
 

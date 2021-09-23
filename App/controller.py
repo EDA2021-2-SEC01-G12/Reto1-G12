@@ -69,3 +69,6 @@ def artistasEnRango(catalogo,fecha1,fecha2):
 
 def obrasPorDateAcquired(catalogo, fechaInicio, fechaFin):
     return model.obrasPorDateAcquired(catalogo, fechaInicio, fechaFin)
+
+def idOfArtist (catalogo):
+    return model.idOfArtist(catalogo)
