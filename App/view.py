@@ -49,8 +49,8 @@ def initCatalog():
     return controller.initCatalog()
 
 
-def sortArtworks(catalog, muestra, tipo):
-    sorted=controller.sortArtworks(catalog,int(muestra),tipo)
+def sortArtworks(catalog):
+    sorted=controller.sortArtworks(catalog)
     return sorted
 
 def artistasEnRango(catalogo,fecha1, fecha2):
@@ -137,15 +137,59 @@ while True:
         printSortResults(newList)
     elif int(inputs[0]) ==3:
         print("Ordenando obras por fecha de adquisición..\n")
-        anio1=input("Ingrese el año inicial en formato de 4 dígitos:\n")
-        mes1=input("Ingrese el mes inicial en formato de 2 dígitos:\n")
-        dia1=input("Ingrese el dia inicial en formato de 2 dígitos:\n")
-        anio2=input("Ingrese el año final en formato de 4 dígitos:\n")
-        mes2=input("Ingrese el mes final en formato de 2 dígitos:\n")
-        dia2=input("Ingrese el dia final en formato de 2 dígitos:\n")
+        listaOrdenada=sortArtworks(catalogo)
+        anioInicio,mesInicio,diaInicio,anioFin,mesFin,diaFin=True,True,True,True,True,True
+        print("Ingrese el año inicial en formato de 4 dígitos:")
+        anio1=input("")
+        while anioInicio:
+            if len(anio1)!=4:
+                print("El número ingresado tiene un formato invalido")
+                anio1=input("")
+            else:
+                anioInicio=False
+        print("Ingrese el mes inicial en formato de 2 dígitos:")
+        mes1=input("")
+        while mesInicio:
+            if len(mes1)!=2:
+                print("El número ingresado tiene un formato invalido")
+                mes1=input("")
+            else:
+                mesInicio=False
+        print("Ingrese el dia inicial en formato de 2 dígitos:")
+        dia1=input("")
+        while diaInicio:
+            if len(dia1)!=2:
+                print("El número ingresado tiene un formato invalido")
+                dia1=input("")
+            else:
+                diaInicio=False
+        print("Ingrese el año final en formato de 4 dígitos:")
+        anio2=input("")
+        while anioFin:
+            if len(anio2)!=4:
+                print("El número ingresado tiene un formato invalido")
+                anio2=input("")
+            else:
+                anioFin=False
+        print("Ingrese el mes final en formato de 2 dígitos:")
+        mes2=input("")
+        while mesFin:
+            if len(mes2)!=2:
+                print("El número ingresado tiene un formato invalido")
+                mes2=input("")
+            else:
+                mesFin=False
+        print("Ingrese el dia inicial en formato de 2 dígitos:")
+        dia2=input("")
+        while diaFin:
+            if len(dia2)!=2:
+                print("El número ingresado tiene un formato invalido")
+                dia2=input("")
+            else:
+                diaFin=False
         fecha1=anio1+"-"+mes1+"-"+dia1
         fecha2=anio2+"-"+mes2+"-"+dia2
-        obrasSorted=obrasPorDateAcquired(catalogo,fecha1,fecha2)
+        obrasSorted=obrasPorDateAcquired(listaOrdenada,fecha1,fecha2)
         print("Entre "+fecha1+" y "+fecha2+" el museo adquirió ",lt.size(obrasSorted)," obras")
         printArtworksResults(obrasSorted)
     elif int(inputs[0])==4:

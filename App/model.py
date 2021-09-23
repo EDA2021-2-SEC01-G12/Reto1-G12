@@ -81,7 +81,7 @@ def artistasEnRango(catalogo,fecha1,fecha2):
     return ltArtistasRango
 
 def obrasPorDateAcquired(catalogo, fechaInicio:str, fechaFin:str):
-    cat=sortArtworks(catalogo)
+    cat=catalogo
     fechaInicio=int(fechaInicio.replace("-","")) 
     fechaFin=int(fechaFin.replace("-",""))
     posObra=None
