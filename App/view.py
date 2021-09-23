@@ -111,7 +111,14 @@ def printArtworksResults(sortedArtworks,catalogo):
             j+=1
             if j==-1:
                 obras=False
+        nombresArtista=""
         idArtistasActual=(obra["ConstituentID"]).split(",")
+        q=0
+        while q !=len(idArtistasActual):
+            identificador=idArtistasActual[q]
+            nombre=ids[identificador]
+            nombresArtista+=(nombre+"- ")
+            q+=1
         titulo,fecha,medio,dimensiones=obra["Title"],obra["Date"],obra["Medium"],obra["Dimensions"]
         if fecha=="":
             fecha="No se conoce la fecha de creación"
@@ -119,7 +126,7 @@ def printArtworksResults(sortedArtworks,catalogo):
             medio="No se conoce el medio"
         if dimensiones=="":
             dimensiones="No se conocen las dimensiones de la obras"
-        print("Titulo: "+titulo+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
+        print("Titulo: "+titulo+"\nArtistas: "+nombresArtista+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
 
 
 
@@ -200,7 +207,8 @@ while True:
         print("Entre "+fecha1+" y "+fecha2+" el museo adquirió ",lt.size(obrasSorted)," obras")
         printArtworksResults(obrasSorted,catalogo)
     elif int(inputs[0])==4:
-        pass
+        lista=idOfArtist(catalogo)
+        print(lista)
     elif int(inputs[0])==5:
         pass
     elif int(inputs[0])==6:

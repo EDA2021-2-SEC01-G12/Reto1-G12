@@ -116,7 +116,6 @@ def idOfArtist(catalogo):
         i+=1
     return ids
 
-
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 def cmpArtworkByDateAcquired(artwork1, artwork2):
