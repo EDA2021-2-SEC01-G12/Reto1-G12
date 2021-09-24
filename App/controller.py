@@ -72,3 +72,5 @@ def obrasPorDateAcquired(catalogo, fechaInicio, fechaFin):
 
 def idOfArtist (catalogo):
     return model.idOfArtist(catalogo)
+
+    
