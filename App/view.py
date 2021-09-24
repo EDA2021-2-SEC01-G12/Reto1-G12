@@ -90,6 +90,7 @@ def printSortResults(sortedArtist):
 def printArtworksResults(sortedArtworks,catalogo):
     ids=idOfArtist(catalogo)
     compradas=0
+    print(ids)
     z=1
     while z!=lt.size(sortedArtworks):
         credit=lt.getElement(sortedArtworks,z)["CreditLine"]
@@ -112,12 +113,17 @@ def printArtworksResults(sortedArtworks,catalogo):
             if j==-1:
                 obras=False
         nombresArtista=""
-        idArtistasActual=(obra["ConstituentID"]).split(",")
+        idArtistasActual=obra["ConstituentID"].replace("[","").replace("]","").split(",")
+        print(idArtistasActual)
         q=0
-        while q !=len(idArtistasActual):
-            identificador=idArtistasActual[q]
-            nombre=ids[identificador]
-            nombresArtista+=(nombre+"- ")
+        while q!=lt.size(ids):
+            iD=lt.getElement(ids,q)[0]
+            name=lt.getElement(ids,q)[1]
+            g=0
+            while g!=len(idArtistasActual):
+                if iD == idArtistasActual[g]:
+                    nombresArtista+=name
+                g+=1
             q+=1
         titulo,fecha,medio,dimensiones=obra["Title"],obra["Date"],obra["Medium"],obra["Dimensions"]
         if fecha=="":
@@ -127,6 +133,9 @@ def printArtworksResults(sortedArtworks,catalogo):
         if dimensiones=="":
             dimensiones="No se conocen las dimensiones de la obras"
         print("Titulo: "+titulo+"\nArtistas: "+nombresArtista+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
+
+
+
 
 
 
@@ -222,8 +231,6 @@ sys.exit(0)
 
 #preguntas pal profe
 '''
--En que formato toca preguntar la fecha del req 2
--Como se deben imprimir los datos ¿Como lo tenemos o en tabla?
 -A que se refiere con medio
 -Existen datos incompletos? es decir datos solo con año
 -Se puede usar un diccionario para hacer la relacion id-nombre?
@@ -263,3 +270,12 @@ sys.exit(0)
         newList=sort[1]
         tiempo=sort[0]
         print("El tiempo tardado en ordenar ",muestra1," elementos fue de ",tiempo," msg")'''
+
+
+'''iD=lt.getElement(ids,q)[0]
+            name=lt.getElement(ids,q)[1]
+            if iD in idArtistasActual:
+                idArtistasActual.replace(iD,name)
+            q+=1
+        print(q)
+        print(idArtistasActual)'''
