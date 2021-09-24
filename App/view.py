@@ -93,7 +93,7 @@ def printSortResults(sortedArtist):
 def printArtworksResults(sortedArtworks,catalogo):
     ids=idOfArtist(catalogo)
     compradas=0
-    #print(ids)
+    print(ids)
     z=1
     while z!=lt.size(sortedArtworks):
         credit=lt.getElement(sortedArtworks,z)["CreditLine"]
@@ -115,16 +115,17 @@ def printArtworksResults(sortedArtworks,catalogo):
             j+=1
             if j==-1:
                 obras=False
-        nombresArtista=""
+        nombresArtista=[]
         idArtistasActual=obra["ConstituentID"].replace("[","").replace("]","").split(",")
         q=0
         while q!=len(idArtistasActual):
-            g=0
+            g=1
             while g!=lt.size(ids):
                 iD=lt.getElement(ids,g)[0]
                 name=lt.getElement(ids,g)[1]
-                if iD==idArtistasActual[q]:
-                    nombresArtista+=name
+                if iD in idArtistasActual[q]:
+                    nombresArtista.append(name)
+                    nombres = ", ".join(nombresArtista)
                 g+=1
             q+=1
         titulo,fecha,medio,dimensiones=obra["Title"],obra["Date"],obra["Medium"],obra["Dimensions"]
@@ -134,7 +135,7 @@ def printArtworksResults(sortedArtworks,catalogo):
             medio="No se conoce el medio"
         if dimensiones=="":
             dimensiones="No se conocen las dimensiones de la obras"
-        print("Titulo: "+titulo+"\nArtistas: "+nombresArtista+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
+        print("Titulo: "+titulo+"\nArtistas: "+nombres+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
 
 
 
