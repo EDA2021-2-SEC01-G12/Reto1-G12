@@ -62,6 +62,9 @@ def obrasPorDateAcquired(catalogo, fechaInicio, fechaFin):
 def idOfArtist(catalogo):
     return controller.idOfArtist(catalogo)
 
+def findArtistInfo(artistName):
+    pass
+
 #Funciones para imprimir resultados
 
 def printSortResults(sortedArtist): 
@@ -90,7 +93,7 @@ def printSortResults(sortedArtist):
 def printArtworksResults(sortedArtworks,catalogo):
     ids=idOfArtist(catalogo)
     compradas=0
-    print(ids)
+    #print(ids)
     z=1
     while z!=lt.size(sortedArtworks):
         credit=lt.getElement(sortedArtworks,z)["CreditLine"]
@@ -114,14 +117,13 @@ def printArtworksResults(sortedArtworks,catalogo):
                 obras=False
         nombresArtista=""
         idArtistasActual=obra["ConstituentID"].replace("[","").replace("]","").split(",")
-        print(idArtistasActual)
         q=0
-        while q!=lt.size(ids):
-            iD=lt.getElement(ids,q)[0]
-            name=lt.getElement(ids,q)[1]
+        while q!=len(idArtistasActual):
             g=0
-            while g!=len(idArtistasActual):
-                if iD == idArtistasActual[g]:
+            while g!=lt.size(ids):
+                iD=lt.getElement(ids,g)[0]
+                name=lt.getElement(ids,g)[1]
+                if iD==idArtistasActual[q]:
                     nombresArtista+=name
                 g+=1
             q+=1
@@ -216,8 +218,8 @@ while True:
         print("Entre "+fecha1+" y "+fecha2+" el museo adquirió ",lt.size(obrasSorted)," obras")
         printArtworksResults(obrasSorted,catalogo)
     elif int(inputs[0])==4:
-        lista=idOfArtist(catalogo)
-        print(lista)
+        nombreArtist=input("Ingrese el nombre del artista a consultar:\n")
+
     elif int(inputs[0])==5:
         pass
     elif int(inputs[0])==6:
@@ -231,9 +233,9 @@ sys.exit(0)
 
 #preguntas pal profe
 '''
--A que se refiere con medio
--Existen datos incompletos? es decir datos solo con año
--Se puede usar un diccionario para hacer la relacion id-nombre?
+-por que solo nos aparece un nombre si la obra tiene mas de un id?
+-en el valor del nombre del artista, cual es el nombre? es todo completo con lel lugartambien? o solo lo que está
+antes de la coma? 
 '''
 
 
