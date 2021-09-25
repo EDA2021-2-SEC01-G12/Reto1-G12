@@ -218,7 +218,7 @@ while True:
         print(obrasArtista)
         print ("\nEl numero de obras realizadas por este artista son "+str(lt.size(obrasArtista))+"\n")
     elif int(inputs[0])==5:
-        pass
+        print(idOfArtist(catalogo))
     elif int(inputs[0])==6:
         pass
     elif int(inputs[0])==7:

@@ -129,12 +129,14 @@ def findArtistInfo(catalogo,artistName):
         iD=lt.getElement(ids,i)[0]
         if name==artistName:
             idParaBuscar=iD
+            print (idParaBuscar)
             encontrado=False
         i+=1
     j=0
     while j!= lt.size(cat):
         obra=lt.getElement(cat,j)
-        consId=obra["ConstituentID"].replace("["," ").replace("]"," ").replace(","," ,").split(",")
+        consId=obra["ConstituentID"].replace(" ","").replace("["," ").replace("]"," ").replace(","," , ").split(",")
+        #print(cat["elements"][j]["ConstituentID"],idParaBuscar==consId)
         if idParaBuscar in consId:
             lt.addLast(obrasArtista,obra)
         j+=1
