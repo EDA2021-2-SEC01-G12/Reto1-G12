@@ -120,6 +120,7 @@ def idOfArtist(catalogo):
 def findArtistInfo(catalogo,artistName):
     ids=idOfArtist(catalogo)
     cat=catalogo["obras"]
+    tecnicas=None
     obrasArtista=lt.newList("ARRAY_LIST")
     idParaBuscar=""
     i=0
@@ -136,14 +137,24 @@ def findArtistInfo(catalogo,artistName):
     while j!= lt.size(cat):
         obra=lt.getElement(cat,j)
         consId=obra["ConstituentID"].replace(" ","").replace("["," ").replace("]"," ").replace(","," , ").split(",")
-        #print(cat["elements"][j]["ConstituentID"],idParaBuscar==consId)
         if idParaBuscar in consId:
             lt.addLast(obrasArtista,obra)
         j+=1
     if lt.size(obrasArtista)!=0:
         obrasArtista=sortArtworksByMedium(obrasArtista)
-        print(obrasArtista)
-    return obrasArtista
+        tecnicas=contarTecnica(obrasArtista)
+    return obrasArtista,tecnicas
+
+def contarTecnica(obras):
+    i=0
+    tecnicas=lt.newList('ARRAY_LIST')
+    while i !=lt.size(obras):
+        tecnicaactual=lt.getElement(obras,i)['Medium']
+        if lt.isPresent(tecnicas,tecnicaactual)==0:
+            lt.addLast(tecnicas,tecnicaactual)
+        i+=1
+    return tecnicas
+        
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 

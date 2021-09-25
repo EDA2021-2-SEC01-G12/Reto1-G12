@@ -46,7 +46,7 @@ def initCatalog():
 # Funciones para la carga de datos
 
 def addAuthors(catalog):
-    authorsFile= cf.data_dir + "Artists-utf8-large.csv"
+    authorsFile= cf.data_dir + "Artists-utf8-large.csv" 
     autFile = csv.DictReader(open(authorsFile, encoding='utf-8'))
     for author in autFile:
         model.addAuthors(catalog,author)

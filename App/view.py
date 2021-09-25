@@ -20,7 +20,6 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
-from typing_extensions import ParamSpecArgs
 import config as cf
 import sys
 import controller
@@ -89,6 +88,8 @@ def printSortResults(sortedArtist):
             fallece="Desconocida o aún vive"
         if genero=="":
             genero="No reporta"
+        if nacionalidad=="":
+            nacionalidad="Desconocida"
         print("Nombre: "+nombre+"\nGenero: "+genero+"\nFecha de nacimiento: "+nacido+"\nNacionalidad: "+nacionalidad+"\nFecha de fallemiento: "+fallece+"\n_______________________________\n")
 
 def printArtworksResults(sortedArtworks,catalogo):
@@ -216,9 +217,9 @@ while True:
     elif int(inputs[0])==4:
         nombreArtist=input("Ingrese el nombre del artista a consultar:\n")
         obrasArtista=findArtistInfo(catalogo,nombreArtist)
-        print ("\nEl numero de obras realizadas por este artista son "+str(lt.size(obrasArtista))+"\n")
-        if lt.size(obrasArtista)!=0:
-            pass
+        print ("\nEl numero de obras realizadas por este artista son "+str(lt.size(obrasArtista[0]))+"\n")
+        if lt.size(obrasArtista[0])!=0:
+            print('El numero de tecnicas usadas por este artista son: '+str(lt.size(obrasArtista[1]))+'\n')
     elif int(inputs[0])==5:
         pass
     elif int(inputs[0])==6:
