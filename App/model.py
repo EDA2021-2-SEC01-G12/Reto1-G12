@@ -140,6 +140,9 @@ def findArtistInfo(catalogo,artistName):
         if idParaBuscar in consId:
             lt.addLast(obrasArtista,obra)
         j+=1
+    if lt.size(obrasArtista)!=0:
+        obrasArtista=sortArtworksByMedium(obrasArtista)
+        print(obrasArtista)
     return obrasArtista
 
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -178,8 +181,11 @@ def cmpArtistByBirthDate(artista1,artista2):
     else:
         return False
 
-def cmpByAuthorName(name1,name2):
-    pass
+def cmpArtworkByMedium(art1,art2):
+    if art1["Medium"] < art2["Medium"]:
+        return True
+    else:
+        return False
 
     
 
@@ -195,6 +201,9 @@ def sortArtists(catalogo):
     artistasOrdenados=ms.sort(cat,cmpArtistByBirthDate)
     return artistasOrdenados
 
+def sortArtworksByMedium(catalogo):
+    obrasOrdenadas=ms.sort(catalogo,cmpArtworkByMedium)
+    return obrasOrdenadas
 
 
 

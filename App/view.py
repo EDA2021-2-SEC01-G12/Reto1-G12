@@ -20,6 +20,7 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+from typing_extensions import ParamSpecArgs
 import config as cf
 import sys
 import controller
@@ -215,10 +216,11 @@ while True:
     elif int(inputs[0])==4:
         nombreArtist=input("Ingrese el nombre del artista a consultar:\n")
         obrasArtista=findArtistInfo(catalogo,nombreArtist)
-        print(obrasArtista)
         print ("\nEl numero de obras realizadas por este artista son "+str(lt.size(obrasArtista))+"\n")
+        if lt.size(obrasArtista)!=0:
+            pass
     elif int(inputs[0])==5:
-        print(idOfArtist(catalogo))
+        pass
     elif int(inputs[0])==6:
         pass
     elif int(inputs[0])==7:
