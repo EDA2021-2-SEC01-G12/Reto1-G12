@@ -214,13 +214,13 @@ while True:
         printArtworksResults(obrasSorted,catalogo)
     elif int(inputs[0])==4:
         nombreArtist=input("Ingrese el nombre del artista a consultar:\n")
-        identificador=findArtistInfo(catalogo,nombreArtist)
-        print (identificador)
+        obrasArtista=findArtistInfo(catalogo,nombreArtist)
+        print(obrasArtista)
+        print ("\nEl numero de obras realizadas por este artista son "+str(lt.size(obrasArtista))+"\n")
     elif int(inputs[0])==5:
-        texto="1234, 56789, 4567"
-        print("5678" in texto)
+        pass
     elif int(inputs[0])==6:
-        print(idOfArtist(catalogo))
+        pass
     elif int(inputs[0])==7:
         pass
     else:
