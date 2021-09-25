@@ -111,10 +111,34 @@ def idOfArtist(catalogo):
         nombre=(lt.getElement(cat,i)["DisplayName"]).split(",")
         nombre=nombre[0]
         id=lt.getElement(cat,i)["ConstituentID"]
+        id=" "+id+" "
         dato=(id,nombre)
         lt.addLast(ids,dato)
         i+=1
     return ids
+
+def findArtistInfo(catalogo,artistName):
+    ids=idOfArtist(catalogo)
+    cat=catalogo["obras"]
+    obrasArtista=lt.newList("ARRAY_LIST")
+    idParaBuscar=""
+    i=0
+    encontrado=True
+    while i !=lt.size(ids) and encontrado:
+        name=lt.getElement(ids,i)[1]
+        iD=lt.getElement(ids,i)[0]
+        if name==artistName:
+            idParaBuscar=iD
+            encontrado=False
+        i+=1
+    j=0
+    while j!= lt.size(cat):
+        obra=lt.getElement(cat,j)
+        consId=obra["ConstituentID"].replace("["," ").replace("]"," ").replace(","," ,").split(",")
+        if idParaBuscar in consId:
+            lt.addLast(obrasArtista,obra)
+        j+=1
+    return obrasArtista
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 

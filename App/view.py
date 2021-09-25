@@ -62,8 +62,8 @@ def obrasPorDateAcquired(catalogo, fechaInicio, fechaFin):
 def idOfArtist(catalogo):
     return controller.idOfArtist(catalogo)
 
-def findArtistInfo(artistName):
-    pass
+def findArtistInfo(catalogo,artistName):
+    return controller.findArtistInfo(catalogo,artistName)
 
 #Funciones para imprimir resultados
 
@@ -115,14 +115,14 @@ def printArtworksResults(sortedArtworks,catalogo):
             if j==-1:
                 obras=False
         nombresArtista=[]
-        idArtistasActual=obra["ConstituentID"].replace("[","").replace("]","").split(",")
+        idArtistasActual=obra["ConstituentID"].replace("["," ").replace("]"," ").replace(","," ,").split(",")
         q=0
         while q!=len(idArtistasActual):
             g=1
             while g!=lt.size(ids):
                 iD=lt.getElement(ids,g)[0]
                 name=lt.getElement(ids,g)[1]
-                if iD in idArtistasActual[q]:
+                if iD == idArtistasActual[q]:
                     nombresArtista.append(name)
                     nombres = ", ".join(nombresArtista)
                 g+=1
@@ -214,11 +214,13 @@ while True:
         printArtworksResults(obrasSorted,catalogo)
     elif int(inputs[0])==4:
         nombreArtist=input("Ingrese el nombre del artista a consultar:\n")
-
+        identificador=findArtistInfo(catalogo,nombreArtist)
+        print (identificador)
     elif int(inputs[0])==5:
-        pass
+        texto="1234, 56789, 4567"
+        print("5678" in texto)
     elif int(inputs[0])==6:
-        pass
+        print(idOfArtist(catalogo))
     elif int(inputs[0])==7:
         pass
     else:
