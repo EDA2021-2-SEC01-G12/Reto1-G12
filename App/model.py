@@ -149,7 +149,7 @@ def contarTecnica(obras):
     i=0
     tecnicas=lt.newList('ARRAY_LIST')
     while i !=lt.size(obras):
-        tecnicaactual=lt.getElement(obras,i)['Medium']
+        tecnicaactual=(lt.getElement(obras,i)['Medium']).lower()
         if lt.isPresent(tecnicas,tecnicaactual)==0:
             lt.addLast(tecnicas,tecnicaactual)
         i+=1
