@@ -152,6 +152,9 @@ def cmpArtistByBirthDate(artista1,artista2):
     else:
         return False
 
+def cmpByAuthorName(name1,name2):
+    pass
+
     
 
 # Funciones de ordenamiento    

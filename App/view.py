@@ -85,7 +85,7 @@ def printSortResults(sortedArtist):
         if nacido=="0":
             nacido="Desconocida"
         if fallece=="0":
-            fallece="Desconocida"
+            fallece="Desconocida o aún vive"
         if genero=="":
             genero="No reporta"
         print("Nombre: "+nombre+"\nGenero: "+genero+"\nFecha de nacimiento: "+nacido+"\nNacionalidad: "+nacionalidad+"\nFecha de fallemiento: "+fallece+"\n_______________________________\n")
@@ -93,7 +93,6 @@ def printSortResults(sortedArtist):
 def printArtworksResults(sortedArtworks,catalogo):
     ids=idOfArtist(catalogo)
     compradas=0
-    print(ids)
     z=1
     while z!=lt.size(sortedArtworks):
         credit=lt.getElement(sortedArtworks,z)["CreditLine"]
@@ -136,11 +135,6 @@ def printArtworksResults(sortedArtworks,catalogo):
         if dimensiones=="":
             dimensiones="No se conocen las dimensiones de la obras"
         print("Titulo: "+titulo+"\nArtistas: "+nombres+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
-
-
-
-
-
 
 """
 Menu principal
@@ -234,10 +228,9 @@ sys.exit(0)
 
 #preguntas pal profe
 '''
--por que solo nos aparece un nombre si la obra tiene mas de un id?
--en el valor del nombre del artista, cual es el nombre? es todo completo con lel lugartambien? o solo lo que está
-antes de la coma? 
+
 '''
+
 
 
 
