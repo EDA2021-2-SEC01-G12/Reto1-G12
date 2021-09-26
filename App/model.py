@@ -142,18 +142,27 @@ def findArtistInfo(catalogo,artistName):
         j+=1
     if lt.size(obrasArtista)!=0:
         obrasArtista=sortArtworksByMedium(obrasArtista)
-        tecnicas=contarTecnica(obrasArtista)
-    return obrasArtista,tecnicas
+        tecnicas=(contarTecnica(obrasArtista))[0]
+        masUsado=(contarTecnica(obrasArtista))[1]
+    return obrasArtista,tecnicas, masUsado
 
 def contarTecnica(obras):
     i=0
-    tecnicas=lt.newList('ARRAY_LIST')
+    tecnicas={}
     while i !=lt.size(obras):
         tecnicaactual=(lt.getElement(obras,i)['Medium']).lower()
-        if lt.isPresent(tecnicas,tecnicaactual)==0:
-            lt.addLast(tecnicas,tecnicaactual)
+        if tecnicaactual not in tecnicas:
+            tecnicas[tecnicaactual]=1
+        else:
+            tecnicas[tecnicaactual]+=1
         i+=1
-    return tecnicas
+    mayor=0
+    nameMayor=None
+    for j in tecnicas:
+        if tecnicas[j]>mayor:
+            mayor=tecnicas[j] 
+            nameMayor= j    
+    return tecnicas,nameMayor
         
 
 # Funciones utilizadas para comparar elementos dentro de una lista
@@ -247,3 +256,12 @@ def sortArtworksByMedium(catalogo):
         if int(dateAcquired[0]) > int(fechaFin[0]) and int(dateAcquired[1]) > int(fechaFin[1]) and int(dateAcquired[2]) > int(fechaFin[2]):
             ultimo=False
         i+=1'''
+
+'''i=0
+    tecnicas=lt.newList('ARRAY_LIST')
+    while i !=lt.size(obras):
+        tecnicaactual=(lt.getElement(obras,i)['Medium']).lower()
+        if lt.isPresent(tecnicas,tecnicaactual)==0:
+            lt.addLast(tecnicas,tecnicaactual)
+        i+=1
+    return tecnicas'''

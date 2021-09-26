@@ -219,8 +219,9 @@ while True:
         obrasArtista=findArtistInfo(catalogo,nombreArtist)
         print ("\nEl numero de obras realizadas por este artista son "+str(lt.size(obrasArtista[0]))+"\n")
         if lt.size(obrasArtista[0])!=0:
-            print('El numero de tecnicas usadas por este artista son: '+str(lt.size(obrasArtista[1]))+'\n')
+            print('El numero de tecnicas usadas por este artista son: '+str(len(obrasArtista[1]))+'\n')
             print(obrasArtista[1])
+            print('La tecnica mas usada por este autor es '+str(obrasArtista[2]))
     elif int(inputs[0])==5:
         pass
     elif int(inputs[0])==6:
