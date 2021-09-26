@@ -138,6 +138,10 @@ def findArtistInfo(catalogo,artistName):
         if idParaBuscar in consId:
             lt.addLast(obrasArtista,obra)
         j+=1
+    return obrasArtista
+
+def tecnicasUsadas(catalogo,artistName):
+    obrasArtista=findArtistInfo(catalogo,artistName)
     tecnicas=None
     if lt.size(obrasArtista)!=0:
         obrasArtista=sortArtworksByMedium(obrasArtista)
@@ -175,12 +179,12 @@ def contarTecnica(obras):
 
 def hallarNacionalidades(catalogo):
     nacion={}
-    cat=catalogo['artistas']
+    cat=sortArtistByNationality(catalogo['artistas'])
     i=0
     while i!=lt.size(cat):
         nacActual=lt.getElement(cat,i)['Nationality']
         nomActual=(lt.getElement(cat,i)['DisplayName']).split(',')
-        obrasActual=findArtistInfo(catalogo,nomActual[0])[0]
+        obrasActual=findArtistInfo(catalogo,nomActual[0])
         numObrasArtistActual=lt.size(obrasActual)
         if nacActual not in nacion:
             nacion[nacActual]=numObrasArtistActual
@@ -188,7 +192,25 @@ def hallarNacionalidades(catalogo):
             nacion[nacActual]+=numObrasArtistActual
         i+=1
     return nacion
-        
+
+def nuevaExposicion(cat,fechaInicio,fechaFin):
+    i=1
+    contador=0
+    primera=None
+    ultimo=True
+    while i!=lt.size(cat) and ultimo:
+        dateActual=lt.getElement(cat,i)['Date']
+        if dateActual=='':
+            dateActual='0'
+        if fechaInicio<=int(dateActual) and int(dateActual)<=fechaFin:
+            contador+=1
+        if int(dateActual)>=fechaInicio and primera==None:
+            primera=i
+        if int(dateActual)>fechaFin:
+            ultimo=False
+        i+=1
+    obrasRangoFecha=lt.subList(cat,primera,contador)
+    return obrasRangoFecha
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -232,7 +254,19 @@ def cmpArtworkByMedium(art1,art2):
     else:
         return False
 
-    
+def cmpArtistByNationality(artist1,artist2):
+    art1=artist1['Nationality']
+    art2=artist2['Nationality']   
+    if art1<art2:
+        return True
+    else:
+        return False
+
+def cmpArtworkByDate(art1,art2):
+    if art1['Date']<art2['Date']:
+        return True
+    else:
+        return False
 
 # Funciones de ordenamiento    
 
@@ -249,6 +283,21 @@ def sortArtists(catalogo):
 def sortArtworksByMedium(catalogo):
     obrasOrdenadas=ms.sort(catalogo,cmpArtworkByMedium)
     return obrasOrdenadas
+
+def sortArtistByNationality(catalogo):
+    artistsNationality=ms.sort(catalogo,cmpArtistByNationality)
+    return artistsNationality
+
+def sortArtworksByDate(catalogo):
+    cat=catalogo['obras']
+    obrasOrdenadas=ms.sort(cat,cmpArtworkByDate)
+    return obrasOrdenadas
+
+
+
+
+
+
 
 
 

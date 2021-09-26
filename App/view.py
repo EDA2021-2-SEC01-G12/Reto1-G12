@@ -62,8 +62,8 @@ def obrasPorDateAcquired(catalogo, fechaInicio, fechaFin):
 def idOfArtist(catalogo):
     return controller.idOfArtist(catalogo)
 
-def findArtistInfo(catalogo,artistName):
-    return controller.findArtistInfo(catalogo,artistName)
+def tecnicasUsadas(catalogo,artistName):
+    return controller.tecnicasUsadas(catalogo,artistName)
 
 def hallarNacionalidades(catalogo):
     return controller.hallarNacionalidades(catalogo)
@@ -151,6 +151,8 @@ def printMediumArtworks(catalogo):
         print('Titulo: '+titulo+'\nFecha: '+fecha+'\nMedio: '+medio+'\nDimensiones.: '+dimensiones+"\n_______________________________\n")
         i+=1
 
+def nuevaExposicion(catalogo,fechaInicio,fechaFin):
+    return controller.nuevaExposicion(catalogo,fechaInicio,fechaFin)
 
 """
 Menu principal
@@ -230,7 +232,7 @@ while True:
         printArtworksResults(obrasSorted,catalogo)
     elif int(inputs[0])==4:
         nombreArtist=input("Ingrese el nombre del artista a consultar:\n")
-        obrasArtista=findArtistInfo(catalogo,nombreArtist)
+        obrasArtista=tecnicasUsadas(catalogo,nombreArtist)
         print ("\nEl numero de obras realizadas por este artista son "+str(lt.size(obrasArtista[0]))+"\n")
         if lt.size(obrasArtista[0])!=0:
             print('El numero de tecnicas usadas por este artista son '+str(len(obrasArtista[1]))+'\n')
@@ -243,7 +245,12 @@ while True:
     elif int(inputs[0])==6:
         pass
     elif int(inputs[0])==7:
-        pass
+        print('Ordenando obras por fecha...')
+        obrasByDate=controller.sortArtworksByDate(catalogo)
+        fechaInicio=int(input('Ingrese el anio inicial del rango:\n'))
+        fechaFin=int(input('Ingrese el anio final del rango:\n'))
+        obrasRango=nuevaExposicion(obrasByDate,fechaInicio,fechaFin)
+        print ('\nEl numero de obras creadas en ese rango de fechas son '+str(lt.size(obrasRango))+'\n')
     else:
         sys.exit(0)
 sys.exit(0)
@@ -251,7 +258,9 @@ sys.exit(0)
 
 #preguntas pal profe
 '''
-
+-Cuantas de las medidas debemos tener en cuenta para calcular el precio? todas las medidas que tenga? 
+o calcular lo que se pueda y sumarle la tarifa basica por los valores vacios?
+- cual es la diferencia entre el largo y la profundidad de la obra? con cual deberiamos evaluar?
 '''
 
 

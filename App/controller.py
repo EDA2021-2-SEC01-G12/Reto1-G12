@@ -62,6 +62,9 @@ def addArtworks (catalog):
 def sortArtworks(catalogo):
     return model.sortArtworks(catalogo)
 
+def sortArtworksByDate(catalogo):
+    return model.sortArtworksByDate(catalogo)
+
 # Funciones de consulta sobre el catálogo
 
 def artistasEnRango(catalogo,fecha1,fecha2):
@@ -73,8 +76,11 @@ def obrasPorDateAcquired(catalogo, fechaInicio, fechaFin):
 def idOfArtist (catalogo):
     return model.idOfArtist(catalogo)
 
-def findArtistInfo(catalogo,artistName):
-    return model.findArtistInfo(catalogo,artistName)
+def tecnicasUsadas(catalogo,artistName):
+    return model.tecnicasUsadas(catalogo,artistName)
 
 def hallarNacionalidades(catalogo):
     return model.hallarNacionalidades(catalogo)
+
+def nuevaExposicion(catalogo,fechaInicio,fechaFin):
+    return model.nuevaExposicion(catalogo,fechaInicio,fechaFin)
