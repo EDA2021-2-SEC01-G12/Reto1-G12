@@ -252,7 +252,6 @@ while True:
     elif int(inputs[0])==5:
         nacion=hallarNacionalidades(catalogo)
         print('\nEl TOP 10 nacionalidades por numero de obras es:\n')
-        print (nacion)
         printTop10Natonalitys(nacion)
     elif int(inputs[0])==6:
         pass
