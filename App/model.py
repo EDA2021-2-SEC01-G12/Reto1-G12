@@ -205,7 +205,7 @@ def hallarNacionalidades(catalogo):
 
 def obrasMasNacionalidad(catalogo):
     obrasNacionalidad=hallarNacionalidades(catalogo)
-    nacionalidadTOP1=(lt.getElement(obrasNacionalidad,1))[0]
+    nacionalidadTOP1= "French"#(lt.getElement(obrasNacionalidad,1))[0]
     cat=catalogo["obras"]
     catArt=catalogo["artistas"]
     i=0
@@ -213,9 +213,20 @@ def obrasMasNacionalidad(catalogo):
     terminado=True
     while i!=lt.size(catArt):
         if lt.getElement(catArt,i)["Nationality"]==nacionalidadTOP1:
-            lt.addLast(listaIDS,lt.getElement(catArt,i)["ConstituentID"])
+            lt.addLast(listaIDS, " "+ lt.getElement(catArt,i)["ConstituentID"]+" ")
         i+=1
-    return listaIDS
+    j=0
+    listaObrasNacionalidad = lt.newList(datastructure="ARRAY_LIST")
+    while j!= lt.size(listaIDS)+1:
+        iDActual=lt.getElement(listaIDS,j)
+        k=0
+        while k != lt.size(cat):
+            iDobra = lt.getElement(cat,k)["ConstituentID"].replace(" ","").replace("["," ").replace("]"," ").replace(","," , ").split(",")
+            if iDActual in iDobra:
+                lt.addLast(listaObrasNacionalidad,lt.getElement(cat,k))
+            k+=1
+        j+=1
+    return listaObrasNacionalidad
 
 
 def nuevaExposicion(cat,fechaInicio,fechaFin):
