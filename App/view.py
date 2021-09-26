@@ -68,6 +68,9 @@ def tecnicasUsadas(catalogo,artistName):
 def hallarNacionalidades(catalogo):
     return controller.hallarNacionalidades(catalogo)
 
+def nuevaExposicion(catalogo,fechaInicio,fechaFin):
+    return controller.nuevaExposicion(catalogo,fechaInicio,fechaFin)
+
 #Funciones para imprimir resultados
 
 def printSortResults(sortedArtist): 
@@ -151,8 +154,15 @@ def printMediumArtworks(catalogo):
         print('Titulo: '+titulo+'\nFecha: '+fecha+'\nMedio: '+medio+'\nDimensiones.: '+dimensiones+"\n_______________________________\n")
         i+=1
 
-def nuevaExposicion(catalogo,fechaInicio,fechaFin):
-    return controller.nuevaExposicion(catalogo,fechaInicio,fechaFin)
+def printTop10Natonalitys(catalogo):
+    i=0
+    while i!=10:
+        nacionalidad=lt.getElement(catalogo,i)[0]
+        numero=lt.getElement(catalogo,i)[1]
+        print(nacionalidad+': '+str(numero)+'\n')
+        i+=1
+
+
 
 """
 Menu principal
@@ -241,7 +251,8 @@ while True:
             printMediumArtworks(obrasArtista[3])
     elif int(inputs[0])==5:
         nacion=hallarNacionalidades(catalogo)
-        print(nacion)
+        print('\nEl TOP 10 nacionalidades por numero de obras es:\n')
+        printTop10Natonalitys(nacion)
     elif int(inputs[0])==6:
         pass
     elif int(inputs[0])==7:
@@ -250,7 +261,7 @@ while True:
         fechaInicio=int(input('Ingrese el anio inicial del rango:\n'))
         fechaFin=int(input('Ingrese el anio final del rango:\n'))
         obrasRango=nuevaExposicion(obrasByDate,fechaInicio,fechaFin)
-        print ('\nEl numero de obras creadas en ese rango de fechas son '+str(lt.size(obrasRango))+'\n')
+        print ('\nEl numero de obras creadas en ese rango de fechas son '+str(lt.size(obrasRango))+'\n') 
     else:
         sys.exit(0)
 sys.exit(0)

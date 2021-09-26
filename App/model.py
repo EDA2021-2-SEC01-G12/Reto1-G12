@@ -183,6 +183,8 @@ def hallarNacionalidades(catalogo):
     i=0
     while i!=lt.size(cat):
         nacActual=lt.getElement(cat,i)['Nationality']
+        if nacActual=="":
+            nacActual="Desconocida"
         nomActual=(lt.getElement(cat,i)['DisplayName']).split(',')
         obrasActual=findArtistInfo(catalogo,nomActual[0])
         numObrasArtistActual=lt.size(obrasActual)
@@ -191,7 +193,14 @@ def hallarNacionalidades(catalogo):
         else:
             nacion[nacActual]+=numObrasArtistActual
         i+=1
-    return nacion
+    nacionalidadesOrdenadas=lt.newList(datastructure='ARRAY_LIST')
+    for k in nacion:
+        nation=k
+        numeroNation=nacion[k]
+        dato=(nation,numeroNation)
+        lt.addLast(nacionalidadesOrdenadas,dato)
+    nacionalidadesOrdenadas=sortNationalityByNumber(nacionalidadesOrdenadas)
+    return nacionalidadesOrdenadas
 
 def nuevaExposicion(cat,fechaInicio,fechaFin):
     i=1
@@ -257,7 +266,13 @@ def cmpArtworkByMedium(art1,art2):
 def cmpArtistByNationality(artist1,artist2):
     art1=artist1['Nationality']
     art2=artist2['Nationality']   
-    if art1<art2:
+    if art1>art2:
+        return True
+    else:
+        return False
+
+def cmpArtistByNationalityNumber(nat1,nat2):
+    if nat1[1]>nat2[1]:
         return True
     else:
         return False
@@ -287,6 +302,9 @@ def sortArtworksByMedium(catalogo):
 def sortArtistByNationality(catalogo):
     artistsNationality=ms.sort(catalogo,cmpArtistByNationality)
     return artistsNationality
+
+def sortNationalityByNumber(catalogo):
+    return ms.sort(catalogo,cmpArtistByNationalityNumber)
 
 def sortArtworksByDate(catalogo):
     cat=catalogo['obras']
