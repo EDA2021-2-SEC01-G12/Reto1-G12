@@ -84,3 +84,6 @@ def hallarNacionalidades(catalogo):
 
 def nuevaExposicion(catalogo,fechaInicio,fechaFin):
     return model.nuevaExposicion(catalogo,fechaInicio,fechaFin)
+
+def obrasMasNacionalidad(catalogo):
+    return model.obrasMasNacionalidad(catalogo)

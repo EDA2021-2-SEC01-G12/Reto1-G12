@@ -182,7 +182,7 @@ def hallarNacionalidades(catalogo):
     cat=sortArtistByNationality(catalogo['artistas'])
     i=0
     while i!=lt.size(cat):
-        nacActual=lt.getElement(cat,i)['Nationality']
+        nacActual=lt.getElement(cat,i)["Nationality"]
         if nacActual=="":
             nacActual="Desconocida"
         nomActual=(lt.getElement(cat,i)['DisplayName']).split(',')
@@ -202,6 +202,21 @@ def hallarNacionalidades(catalogo):
     nacionalidadesOrdenadas=sortNationalityByNumber(nacionalidadesOrdenadas)
     nacionalidadesOrdenadas=lt.subList(nacionalidadesOrdenadas,1,10)
     return nacionalidadesOrdenadas
+
+def obrasMasNacionalidad(catalogo):
+    obrasNacionalidad=hallarNacionalidades(catalogo)
+    nacionalidadTOP1=(lt.getElement(obrasNacionalidad,1))[0]
+    cat=catalogo["obras"]
+    catArt=catalogo["artistas"]
+    i=0
+    listaIDS=lt.newList(datastructure="ARRAY_LIST")
+    terminado=True
+    while i!=lt.size(catArt):
+        if lt.getElement(catArt,i)["Nationality"]==nacionalidadTOP1:
+            lt.addLast(listaIDS,lt.getElement(catArt,i)["ConstituentID"])
+        i+=1
+    return listaIDS
+
 
 def nuevaExposicion(cat,fechaInicio,fechaFin):
     i=1
@@ -358,3 +373,7 @@ def sortArtworksByDate(catalogo):
             lt.addLast(tecnicas,tecnicaactual)
         i+=1
     return tecnicas'''
+
+
+'''
+        '''
