@@ -155,8 +155,8 @@ def printMediumArtworks(catalogo):
         i+=1
 
 def printTop10Natonalitys(catalogo):
-    i=0
-    while i!=10:
+    i=1
+    while i!=lt.size(catalogo)+1:
         nacionalidad=lt.getElement(catalogo,i)[0]
         numero=lt.getElement(catalogo,i)[1]
         print(nacionalidad+': '+str(numero)+'\n')
@@ -252,6 +252,7 @@ while True:
     elif int(inputs[0])==5:
         nacion=hallarNacionalidades(catalogo)
         print('\nEl TOP 10 nacionalidades por numero de obras es:\n')
+        print (nacion)
         printTop10Natonalitys(nacion)
     elif int(inputs[0])==6:
         pass

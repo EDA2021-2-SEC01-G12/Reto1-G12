@@ -200,6 +200,7 @@ def hallarNacionalidades(catalogo):
         dato=(nation,numeroNation)
         lt.addLast(nacionalidadesOrdenadas,dato)
     nacionalidadesOrdenadas=sortNationalityByNumber(nacionalidadesOrdenadas)
+    nacionalidadesOrdenadas=lt.subList(nacionalidadesOrdenadas,1,10)
     return nacionalidadesOrdenadas
 
 def nuevaExposicion(cat,fechaInicio,fechaFin):
