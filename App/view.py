@@ -254,9 +254,10 @@ while True:
         print('\nEl TOP 10 nacionalidades por numero de obras es:\n')
         printTop10Natonalitys(nacion)
     elif int(inputs[0])==6:
-        pass
+        ids=controller.obrasMasNacionalidad(catalogo)
+        print("los ids son: \n", ids )
     elif int(inputs[0])==7:
-        print('Ordenando obras por fecha...')
+        print('Ordenando obras por fecha...') 
         obrasByDate=controller.sortArtworksByDate(catalogo)
         fechaInicio=int(input('Ingrese el anio inicial del rango:\n'))
         fechaFin=int(input('Ingrese el anio final del rango:\n'))
