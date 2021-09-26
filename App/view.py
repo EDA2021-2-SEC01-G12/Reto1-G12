@@ -65,6 +65,9 @@ def idOfArtist(catalogo):
 def findArtistInfo(catalogo,artistName):
     return controller.findArtistInfo(catalogo,artistName)
 
+def hallarNacionalidades(catalogo):
+    return controller.hallarNacionalidades(catalogo)
+
 #Funciones para imprimir resultados
 
 def printSortResults(sortedArtist): 
@@ -137,6 +140,17 @@ def printArtworksResults(sortedArtworks,catalogo):
         if dimensiones=="":
             dimensiones="No se conocen las dimensiones de la obras"
         print("Titulo: "+titulo+"\nArtistas: "+nombres+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
+
+def printMediumArtworks(catalogo):
+    i=0
+    while i!=lt.size(catalogo):
+        titulo=lt.getElement(catalogo,i)['Title']
+        fecha=lt.getElement(catalogo,i)['Date']
+        medio=lt.getElement(catalogo,i)['Medium']
+        dimensiones=lt.getElement(catalogo,i)['Dimensions']
+        print('Titulo: '+titulo+'\nFecha: '+fecha+'\nMedio: '+medio+'\nDimensiones.: '+dimensiones+"\n_______________________________\n")
+        i+=1
+
 
 """
 Menu principal
@@ -219,11 +233,13 @@ while True:
         obrasArtista=findArtistInfo(catalogo,nombreArtist)
         print ("\nEl numero de obras realizadas por este artista son "+str(lt.size(obrasArtista[0]))+"\n")
         if lt.size(obrasArtista[0])!=0:
-            print('El numero de tecnicas usadas por este artista son: '+str(len(obrasArtista[1]))+'\n')
-            print(obrasArtista[1])
-            print('La tecnica mas usada por este autor es '+str(obrasArtista[2]))
+            print('El numero de tecnicas usadas por este artista son '+str(len(obrasArtista[1]))+'\n')
+            print('La tecnica mas usada por este autor es '+str(obrasArtista[2])+' con '+str(lt.size(obrasArtista[3]))+' obra(s)\n')
+            print('Las obras que usan dicha tecnica son: '+'\n_______________________________\n')
+            printMediumArtworks(obrasArtista[3])
     elif int(inputs[0])==5:
-        pass
+        nacion=hallarNacionalidades(catalogo)
+        print(nacion)
     elif int(inputs[0])==6:
         pass
     elif int(inputs[0])==7:

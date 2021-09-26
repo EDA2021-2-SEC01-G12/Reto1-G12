@@ -120,7 +120,6 @@ def idOfArtist(catalogo):
 def findArtistInfo(catalogo,artistName):
     ids=idOfArtist(catalogo)
     cat=catalogo["obras"]
-    tecnicas=None
     obrasArtista=lt.newList("ARRAY_LIST")
     idParaBuscar=""
     i=0
@@ -130,7 +129,6 @@ def findArtistInfo(catalogo,artistName):
         iD=lt.getElement(ids,i)[0]
         if name==artistName:
             idParaBuscar=iD
-            print (idParaBuscar)
             encontrado=False
         i+=1
     j=0
@@ -140,11 +138,22 @@ def findArtistInfo(catalogo,artistName):
         if idParaBuscar in consId:
             lt.addLast(obrasArtista,obra)
         j+=1
+    tecnicas=None
     if lt.size(obrasArtista)!=0:
         obrasArtista=sortArtworksByMedium(obrasArtista)
         tecnicas=(contarTecnica(obrasArtista))[0]
         masUsado=(contarTecnica(obrasArtista))[1]
-    return obrasArtista,tecnicas, masUsado
+        k=0
+        obrasTecnicaMasUsada=lt.newList('ARRAY_LIST')
+        while k!=lt.size(obrasArtista):
+            obraAct=lt.getElement(obrasArtista,k)
+            if obraAct['Medium'].lower()==masUsado:
+                lt.addLast(obrasTecnicaMasUsada,obraAct)
+            k+=1
+    else:
+        masUsado=None
+        obrasTecnicaMasUsada=None
+    return obrasArtista,tecnicas, masUsado,obrasTecnicaMasUsada
 
 def contarTecnica(obras):
     i=0
@@ -163,6 +172,22 @@ def contarTecnica(obras):
             mayor=tecnicas[j] 
             nameMayor= j    
     return tecnicas,nameMayor
+
+def hallarNacionalidades(catalogo):
+    nacion={}
+    cat=catalogo['artistas']
+    i=0
+    while i!=lt.size(cat):
+        nacActual=lt.getElement(cat,i)['Nationality']
+        nomActual=(lt.getElement(cat,i)['DisplayName']).split(',')
+        obrasActual=findArtistInfo(catalogo,nomActual[0])[0]
+        numObrasArtistActual=lt.size(obrasActual)
+        if nacActual not in nacion:
+            nacion[nacActual]=numObrasArtistActual
+        else:
+            nacion[nacActual]+=numObrasArtistActual
+        i+=1
+    return nacion
         
 
 # Funciones utilizadas para comparar elementos dentro de una lista
