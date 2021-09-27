@@ -259,9 +259,10 @@ def obrasPorDepartamento(catalogo,departamento):
         pesoTotal+=peso
         if (diametro==0 or altura==0 or ancho ==0 or largo==0) and (altura==0 or ancho==0 or profund==0): 
             costoTotal+=48
+    print(obrasDepartamento)
     return obrasDepartamento,pesoTotal,costoTotal
 
-def nuevaExposicion(cat,fechaInicio,fechaFin):
+def nuevaExposicion(cat,fechaInicio,fechaFin,areaDisponible):
     i=1
     contador=0
     primera=None
@@ -278,7 +279,22 @@ def nuevaExposicion(cat,fechaInicio,fechaFin):
             ultimo=False
         i+=1
     obrasRangoFecha=lt.subList(cat,primera,contador)
-    return obrasRangoFecha
+    areaTotal=0
+    j=1
+    espacio=True
+    obrasAMostrar=lt.newList('ARRAY_LIST')
+    while j!=lt.size(obrasRangoFecha) and espacio:
+        obra=lt.getElement(obrasRangoFecha,j)
+        alto,ancho=obra['Height (cm)'],obra['Width (cm)']
+        if alto!="" and ancho!="":
+            area=float(alto)*float(ancho)
+            if areaTotal+area<=areaDisponible:
+               areaTotal+=area 
+               lt.addLast(obrasAMostrar,obra)
+            elif areaTotal+area==areaDisponible:
+                espacio=False
+        j+=1
+    return obrasRangoFecha,obrasAMostrar,areaTotal
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -357,7 +373,7 @@ def sortArtworks(catalogo):
 
 def sortArtists(catalogo):
     cat=catalogo["artistas"]
-    artistasOrdenados=ms.sort(cat,cmpArtistByBirthDate)
+    artistasOrdenados=sa.sort(cat,cmpArtistByBirthDate)
     return artistasOrdenados
 
 def sortArtworksByMedium(catalogo):
@@ -365,11 +381,11 @@ def sortArtworksByMedium(catalogo):
     return obrasOrdenadas
 
 def sortArtistByNationality(catalogo):
-    artistsNationality=ms.sort(catalogo,cmpArtistByNationality)
+    artistsNationality=qs.sort(catalogo,cmpArtistByNationality)
     return artistsNationality
 
 def sortNationalityByNumber(catalogo):
-    return ms.sort(catalogo,cmpArtistByNationalityNumber)
+    return qs.sort(catalogo,cmpArtistByNationalityNumber)
 
 def sortArtworksByDate(catalogo):
     cat=catalogo['obras']

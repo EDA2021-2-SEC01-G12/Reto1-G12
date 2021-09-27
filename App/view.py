@@ -69,8 +69,8 @@ def tecnicasUsadas(catalogo,artistName):
 def hallarNacionalidades(catalogo):
     return controller.hallarNacionalidades(catalogo)
 
-def nuevaExposicion(catalogo,fechaInicio,fechaFin):
-    return controller.nuevaExposicion(catalogo,fechaInicio,fechaFin)
+def nuevaExposicion(catalogo,fechaInicio,fechaFin,area):
+    return controller.nuevaExposicion(catalogo,fechaInicio,fechaFin,area)
 
 def obrasMasNacionalidad(catalogo):
     return controller.obrasMasNacionalidad(catalogo)
@@ -190,6 +190,12 @@ def printObrasMasNacionalidad(catalogo,obras):
                     nombres = ", ".join(nombresArtista)
                 g+=1
             q+=1
+            if fecha=="":
+                fecha="No se conoce la fecha de creación"
+            if medio=="":
+                medio="No se conoce el medio"
+            if dimensiones=="":
+                dimensiones="No se conocen las dimensiones de la obras"
         print("Titulo: "+titulo+"\nArtistas: "+nombres+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
         i+=1
 
@@ -215,10 +221,51 @@ def printPrimerosCincoObrasDepartamento(catalogo,obrasDept):
                     nombres = ", ".join(nombresArtista)
                 g+=1
             q+=1
+            if fecha=="":
+                fecha="No se conoce la fecha de creación"
+            if medio=="":
+                medio="No se conoce el medio"
+            if dimensiones=="":
+                dimensiones="No se conocen las dimensiones de la obras"
         print("Titulo: "+titulo+"\nClasificacion: "+clasificacion+"\nArtistas: "+nombres+"\nFecha: "+date+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
         i+=1
         
-
+def printObrasAExponer(catalogo,obrasMostrar):
+    ids=idOfArtist(catalogo)
+    i=1
+    j=-6
+    obras=True
+    print("Las primeras y últimas cinco obras dentro de las que van a ser exhibidas son: \n_______________________________\n")
+    while obras:
+        if i!=6:
+            obra=lt.getElement(obrasMostrar,i)
+            i+=1
+        else:
+            obra=lt.getElement(obrasMostrar,j)
+            j+=1
+            if j==-1:
+                obras=False
+        nombresArtista=[]
+        idArtistasActual=obra["ConstituentID"].replace("["," ").replace("]"," ").replace(","," ,").split(",")
+        q=0
+        while q!=len(idArtistasActual):
+            g=1
+            while g!=lt.size(ids):
+                iD=lt.getElement(ids,g)[0]
+                name=lt.getElement(ids,g)[1]
+                if iD == idArtistasActual[q]:
+                    nombresArtista.append(name)
+                    nombres = ", ".join(nombresArtista)
+                g+=1
+            q+=1
+        titulo,fecha,medio,dimensiones,clasificacion=obra["Title"],obra["Date"],obra["Medium"],obra["Dimensions"], obra['Classification']
+        if fecha=="":
+            fecha="No se conoce la fecha de creación"
+        if medio=="":
+            medio="No se conoce el medio"
+        if dimensiones=="":
+            dimensiones="No se conocen las dimensiones de la obras"
+        print("Titulo: "+titulo+"\nClasificacion: "+clasificacion+"\nArtistas: "+nombres+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
 
 """
 Menu principal
@@ -333,7 +380,7 @@ while True:
         start_time = time.process_time()
         obrasDepartamento=obrasPorDepartamento(catalogo,departamento)
         print('El total de obras que pertenecen al departamento ingresado son '+str(lt.size(obrasDepartamento[0]))+'\n')
-        print('El peso total de las obras es '+str(obrasDepartamento[1]))
+        print('El peso total de las obras es '+str(obrasDepartamento[1])+' kg')
         printPrimerosCincoObrasDepartamento(catalogo,obrasDepartamento[0]) 
         stop_time= time.process_time()
         timeSort= (stop_time-start_time)*1000
@@ -343,9 +390,13 @@ while True:
         obrasByDate=controller.sortArtworksByDate(catalogo)
         fechaInicio=int(input('Ingrese el anio inicial del rango:\n'))
         fechaFin=int(input('Ingrese el anio final del rango:\n'))
+        area=int(input('Ingrese el area disponible para cuadros y fotos:\n'))
         start_time = time.process_time()
-        obrasRango=nuevaExposicion(obrasByDate,fechaInicio,fechaFin)
-        print ('\nEl numero de obras creadas en ese rango de fechas son '+str(lt.size(obrasRango))+'\n')
+        obrasRango=nuevaExposicion(obrasByDate,fechaInicio,fechaFin,area)
+        print ('\nEl numero de obras creadas en ese rango de fechas son '+str(lt.size(obrasRango[0]))+'\n')
+        print('El numero de obras a mostrar son '+ str(lt.size(obrasRango[1]))+'\n')
+        print('El area aproximada usada para la exposicion es '+str(round(obrasRango[2],2))+' m^2'+'\n')
+        printObrasAExponer(catalogo,obrasRango[1])
         stop_time= time.process_time()
         timeSort= (stop_time-start_time)*1000
         print(str(timeSort)+'milisegundos')

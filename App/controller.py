@@ -82,8 +82,8 @@ def tecnicasUsadas(catalogo,artistName):
 def hallarNacionalidades(catalogo):
     return model.hallarNacionalidades(catalogo)
 
-def nuevaExposicion(catalogo,fechaInicio,fechaFin):
-    return model.nuevaExposicion(catalogo,fechaInicio,fechaFin)
+def nuevaExposicion(catalogo,fechaInicio,fechaFin,areaDisponible):
+    return model.nuevaExposicion(catalogo,fechaInicio,fechaFin,areaDisponible)
 
 def obrasMasNacionalidad(catalogo):
     return model.obrasMasNacionalidad(catalogo)
