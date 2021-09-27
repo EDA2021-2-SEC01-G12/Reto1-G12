@@ -87,3 +87,6 @@ def nuevaExposicion(catalogo,fechaInicio,fechaFin):
 
 def obrasMasNacionalidad(catalogo):
     return model.obrasMasNacionalidad(catalogo)
+
+def obrasPorDepartamento(catalogo,departamento):
+    return model.obrasPorDepartamento(catalogo,departamento)

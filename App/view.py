@@ -71,6 +71,12 @@ def hallarNacionalidades(catalogo):
 def nuevaExposicion(catalogo,fechaInicio,fechaFin):
     return controller.nuevaExposicion(catalogo,fechaInicio,fechaFin)
 
+def obrasMasNacionalidad(catalogo):
+    return controller.obrasMasNacionalidad(catalogo)
+
+def obrasPorDepartamento(catalogo,departamento):
+    return controller.obrasPorDepartamento(catalogo,departamento)
+
 #Funciones para imprimir resultados
 
 def printSortResults(sortedArtist): 
@@ -162,7 +168,29 @@ def printTop10Natonalitys(catalogo):
         print(nacionalidad+': '+str(numero)+'\n')
         i+=1
 
-
+def printObrasMasNacionalidad(catalogo,obras):
+    ids=idOfArtist(catalogo)
+    i=1
+    while i!=lt.size(obras)+1:
+        titulo=lt.getElement(obras,i)['Title']
+        fecha=lt.getElement(obras,i)['Date']
+        medio=lt.getElement(obras,i)['Medium']
+        dimensiones=lt.getElement(obras,i)['Dimensions']
+        nombresArtista=[]
+        idArtistasActual=lt.getElement(obras,i)["ConstituentID"].replace("["," ").replace("]"," ").replace(","," ,").split(",")
+        q=0
+        while q!=len(idArtistasActual):
+            g=1
+            while g!=lt.size(ids):
+                iD=lt.getElement(ids,g)[0]
+                name=lt.getElement(ids,g)[1]
+                if iD == idArtistasActual[q]:
+                    nombresArtista.append(name)
+                    nombres = ", ".join(nombresArtista)
+                g+=1
+            q+=1
+        print("Titulo: "+titulo+"\nArtistas: "+nombres+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
+        i+=1
 
 """
 Menu principal
@@ -253,9 +281,14 @@ while True:
         nacion=hallarNacionalidades(catalogo)
         print('\nEl TOP 10 nacionalidades por numero de obras es:\n')
         printTop10Natonalitys(nacion)
+        print('\nLas obras cuyos autores son de dicha nacionalidad:\n')
+        obrasMas=obrasMasNacionalidad(catalogo)
+        printObrasMasNacionalidad(catalogo,obrasMas)
     elif int(inputs[0])==6:
-        ids=controller.obrasMasNacionalidad(catalogo)
-        print("los ids son: \n", ids )
+        departamento=input('Ingrese el departamento que desea buscar:\n')
+        obrasDepartamento=obrasPorDepartamento(catalogo,departamento)
+        print('El total de obras que pertenecen al departamento ingresado son '+str(lt.size(obrasDepartamento[0]))+'\n')
+        print('El peso total de las obras es '+str(obrasDepartamento[1]))
     elif int(inputs[0])==7:
         print('Ordenando obras por fecha...') 
         obrasByDate=controller.sortArtworksByDate(catalogo)

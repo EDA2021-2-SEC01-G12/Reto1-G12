@@ -67,7 +67,7 @@ def artistasEnRango(catalogo,fecha1,fecha2):
     cat=sortArtists(catalogo)
     posArtista=None
     contador=0
-    i=1
+    i=0
     segundo=True
     while i<= lt.size(cat) and segundo:
         if fecha1<= int((lt.getElement(cat,i))["BeginDate"]) and int((lt.getElement(cat,i))["BeginDate"])<=fecha2:
@@ -86,7 +86,7 @@ def obrasPorDateAcquired(catalogo, fechaInicio:str, fechaFin:str):
     fechaFin=int(fechaFin.replace("-",""))
     posObra=None
     contador=0
-    i=1
+    i=0
     ultimo=True
     while i<=lt.size(cat) and ultimo:
         dateAcquired=(lt.getElement(cat,i)["DateAcquired"])
@@ -106,7 +106,7 @@ def obrasPorDateAcquired(catalogo, fechaInicio:str, fechaFin:str):
 def idOfArtist(catalogo):
     cat=catalogo["artistas"]
     ids=lt.newList("ARRAY_LIST")
-    i=1
+    i=0
     while i !=lt.size(cat):
         nombre=(lt.getElement(cat,i)["DisplayName"]).split(",")
         nombre=nombre[0]
@@ -205,7 +205,7 @@ def hallarNacionalidades(catalogo):
 
 def obrasMasNacionalidad(catalogo):
     obrasNacionalidad=hallarNacionalidades(catalogo)
-    nacionalidadTOP1= "French"#(lt.getElement(obrasNacionalidad,1))[0]
+    nacionalidadTOP1= (lt.getElement(obrasNacionalidad,1))[0]
     cat=catalogo["obras"]
     catArt=catalogo["artistas"]
     i=0
@@ -217,7 +217,7 @@ def obrasMasNacionalidad(catalogo):
         i+=1
     j=0
     listaObrasNacionalidad = lt.newList(datastructure="ARRAY_LIST")
-    while j!= lt.size(listaIDS)+1:
+    while j!= lt.size(listaIDS):
         iDActual=lt.getElement(listaIDS,j)
         k=0
         while k != lt.size(cat):
@@ -228,9 +228,40 @@ def obrasMasNacionalidad(catalogo):
         j+=1
     return listaObrasNacionalidad
 
+def obrasPorDepartamento(catalogo,departamento):
+    cat=sortArtworksByDepartment(catalogo)
+    i=0
+    obrasDepartamento=lt.newList(datastructure='ARRAY_LIST')
+    while i!=lt.size(cat):
+        obra=lt.getElement(cat,i)
+        if obra['Department']==departamento:
+            lt.addLast(obrasDepartamento,obra)
+        i+=1  
+    j=0
+    pesoTotal=0
+    costoTotal=0
+    while j!=lt.size(obrasDepartamento):
+        obra=lt.getElement(obrasDepartamento,j)
+        circun,profund,diametro,altura,largo,peso,ancho,alturaBase=obra['Circumference (cm)'],obra['Depth (cm)'],obra['Diameter (cm)'],obra['Height (cm)'],obra['Length (cm)'],obra['Weight (kg)'],obra['Width (cm)'],obra['Seat Height (cm)']
+        if profund=='':
+            profund=0/100
+        if diametro=='':
+            diametro=0/100
+        if altura=='':
+            altura=0/100
+        if largo=='':
+            largo=0/100
+        if peso=='':
+            peso=0/100
+        if ancho=='':
+            ancho=0/100
+        pesoTotal+=peso
+        if (diametro==0 or altura==0 or ancho ==0 or largo==0) and (altura==0 or ancho==0 or profund==0): 
+            costoTotal+=48
+    return obrasDepartamento,pesoTotal,costoTotal
 
 def nuevaExposicion(cat,fechaInicio,fechaFin):
-    i=1
+    i=0
     contador=0
     primera=None
     ultimo=True
@@ -310,6 +341,12 @@ def cmpArtworkByDate(art1,art2):
     else:
         return False
 
+def cmpArtworksByDepartment(art1,art2):
+    if art1['Department']<art2['Department']:
+        return True
+    else:
+        return False
+
 # Funciones de ordenamiento    
 
 def sortArtworks(catalogo):
@@ -337,6 +374,11 @@ def sortArtworksByDate(catalogo):
     cat=catalogo['obras']
     obrasOrdenadas=ms.sort(cat,cmpArtworkByDate)
     return obrasOrdenadas
+
+def sortArtworksByDepartment(catalogo):
+    cat=catalogo['obras']
+    return ms.sort(cat,cmpArtworksByDepartment)
+
 
 
 
