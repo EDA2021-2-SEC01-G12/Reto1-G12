@@ -23,6 +23,7 @@
 import config as cf
 import sys
 import controller
+import time
 from DISClib.ADT import list as lt
 assert cf
 
@@ -192,6 +193,33 @@ def printObrasMasNacionalidad(catalogo,obras):
         print("Titulo: "+titulo+"\nArtistas: "+nombres+"\nFecha: "+fecha+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
         i+=1
 
+def printPrimerosCincoObrasDepartamento(catalogo,obrasDept):
+    ids=idOfArtist(catalogo)
+    i=1
+    while i!=6:
+        titulo=lt.getElement(obrasDept,i)['Title']
+        clasificacion=lt.getElement(obrasDept,i)['Classification']
+        date=lt.getElement(obrasDept,i)['Date']
+        medio=lt.getElement(obrasDept,i)['Medium']
+        dimensiones=lt.getElement(obrasDept,i)['Dimensions']
+        nombresArtista=[]
+        idArtistasActual=lt.getElement(obrasDept,i)["ConstituentID"].replace("["," ").replace("]"," ").replace(","," ,").split(",")
+        q=0
+        while q!=len(idArtistasActual):
+            g=1
+            while g!=lt.size(ids):
+                iD=lt.getElement(ids,g)[0]
+                name=lt.getElement(ids,g)[1]
+                if iD == idArtistasActual[q]:
+                    nombresArtista.append(name)
+                    nombres = ", ".join(nombresArtista)
+                g+=1
+            q+=1
+        print("Titulo: "+titulo+"\nClasificacion: "+clasificacion+"\nArtistas: "+nombres+"\nFecha: "+date+"\nMedio: "+medio+"\nDimensiones: "+dimensiones+"\n_______________________________\n")
+        i+=1
+        
+
+
 """
 Menu principal
 """
@@ -206,11 +234,15 @@ while True:
         print("Los datos fueron cargados")
     elif int(inputs[0]) == 2:
         print("Ordenando artistas por fecha de nacimiento...\n")
+        start_time = time.process_time()
         fechaInicial=int(input("Ingrese el año inicial del rango: "))
         fechaFinal=int(input("Ingrese el año final del rango: "))
         newList=artistasEnRango(catalogo,fechaInicial,fechaFinal)
         print("\nEntre ",fechaInicial," y ",fechaFinal," nacieron ",lt.size(newList),"artistas\n")
         printSortResults(newList)
+        stop_time= time.process_time()
+        timeSort= (stop_time-start_time)*1000
+        print(str(timeSort)+'milisegundos')
     elif int(inputs[0]) ==3:
         print("Ordenando obras por fecha de adquisición..\n")
         listaOrdenada=sortArtworks(catalogo)
@@ -263,13 +295,18 @@ while True:
                 dia2=input("")
             else:
                 diaFin=False
+        start_time = time.process_time()
         fecha1=anio1+"-"+mes1+"-"+dia1
         fecha2=anio2+"-"+mes2+"-"+dia2
         obrasSorted=obrasPorDateAcquired(listaOrdenada,fecha1,fecha2)
         print("Entre "+fecha1+" y "+fecha2+" el museo adquirió ",lt.size(obrasSorted)," obras")
         printArtworksResults(obrasSorted,catalogo)
+        stop_time= time.process_time()
+        timeSort= (stop_time-start_time)*1000
+        print(str(timeSort)+'milisegundos')
     elif int(inputs[0])==4:
         nombreArtist=input("Ingrese el nombre del artista a consultar:\n")
+        start_time = time.process_time()
         obrasArtista=tecnicasUsadas(catalogo,nombreArtist)
         print ("\nEl numero de obras realizadas por este artista son "+str(lt.size(obrasArtista[0]))+"\n")
         if lt.size(obrasArtista[0])!=0:
@@ -277,25 +314,41 @@ while True:
             print('La tecnica mas usada por este autor es '+str(obrasArtista[2])+' con '+str(lt.size(obrasArtista[3]))+' obra(s)\n')
             print('Las obras que usan dicha tecnica son: '+'\n_______________________________\n')
             printMediumArtworks(obrasArtista[3])
+        stop_time= time.process_time()
+        timeSort= (stop_time-start_time)*1000
+        print(str(timeSort)+'milisegundos')
     elif int(inputs[0])==5:
+        start_time = time.process_time()
         nacion=hallarNacionalidades(catalogo)
         print('\nEl TOP 10 nacionalidades por numero de obras es:\n')
         printTop10Natonalitys(nacion)
         print('\nLas obras cuyos autores son de dicha nacionalidad:\n')
         obrasMas=obrasMasNacionalidad(catalogo)
         printObrasMasNacionalidad(catalogo,obrasMas)
+        stop_time= time.process_time()
+        timeSort= (stop_time-start_time)*1000
+        print(str(timeSort)+'milisegundos')
     elif int(inputs[0])==6:
         departamento=input('Ingrese el departamento que desea buscar:\n')
+        start_time = time.process_time()
         obrasDepartamento=obrasPorDepartamento(catalogo,departamento)
         print('El total de obras que pertenecen al departamento ingresado son '+str(lt.size(obrasDepartamento[0]))+'\n')
         print('El peso total de las obras es '+str(obrasDepartamento[1]))
+        printPrimerosCincoObrasDepartamento(catalogo,obrasDepartamento[0]) 
+        stop_time= time.process_time()
+        timeSort= (stop_time-start_time)*1000
+        print(str(timeSort)+'milisegundos')
     elif int(inputs[0])==7:
         print('Ordenando obras por fecha...') 
         obrasByDate=controller.sortArtworksByDate(catalogo)
         fechaInicio=int(input('Ingrese el anio inicial del rango:\n'))
         fechaFin=int(input('Ingrese el anio final del rango:\n'))
+        start_time = time.process_time()
         obrasRango=nuevaExposicion(obrasByDate,fechaInicio,fechaFin)
-        print ('\nEl numero de obras creadas en ese rango de fechas son '+str(lt.size(obrasRango))+'\n') 
+        print ('\nEl numero de obras creadas en ese rango de fechas son '+str(lt.size(obrasRango))+'\n')
+        stop_time= time.process_time()
+        timeSort= (stop_time-start_time)*1000
+        print(str(timeSort)+'milisegundos')
     else:
         sys.exit(0)
 sys.exit(0)
