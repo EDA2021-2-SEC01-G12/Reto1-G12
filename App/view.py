@@ -344,18 +344,13 @@ while True:
                 dia2=input("")
             else:
                 diaFin=False
-        start_time = time.process_time()
         fecha1=anio1+"-"+mes1+"-"+dia1
         fecha2=anio2+"-"+mes2+"-"+dia2
         obrasSorted=obrasPorDateAcquired(listaOrdenada,fecha1,fecha2)
         print("Entre "+fecha1+" y "+fecha2+" el museo adquirió ",lt.size(obrasSorted)," obras")
         printArtworksResults(obrasSorted,catalogo)
-        stop_time= time.process_time()
-        timeSort= (stop_time-start_time)*1000
-        print(str(timeSort)+'milisegundos')
     elif int(inputs[0])==4:
         nombreArtist=input("Ingrese el nombre del artista a consultar:\n")
-        start_time = time.process_time()
         obrasArtista=tecnicasUsadas(catalogo,nombreArtist)
         print ("\nEl numero de obras realizadas por este artista son "+str(lt.size(obrasArtista[0]))+"\n")
         if lt.size(obrasArtista[0])!=0:
@@ -363,45 +358,30 @@ while True:
             print('La tecnica mas usada por este autor es '+str(obrasArtista[2])+' con '+str(lt.size(obrasArtista[3]))+' obra(s)\n')
             print('Las obras que usan dicha tecnica son: '+'\n_______________________________\n')
             printMediumArtworks(obrasArtista[3])
-        stop_time= time.process_time()
-        timeSort= (stop_time-start_time)*1000
-        print(str(timeSort)+'milisegundos')
     elif int(inputs[0])==5:
-        start_time = time.process_time()
         nacion=hallarNacionalidades(catalogo)
         print('\nEl TOP 10 nacionalidades por numero de obras es:\n')
         printTop10Natonalitys(nacion)
         print('\nLas obras cuyos autores son de dicha nacionalidad:\n')
         obrasMas=obrasMasNacionalidad(catalogo)
         printObrasMasNacionalidad(catalogo,obrasMas)
-        stop_time= time.process_time()
-        timeSort= (stop_time-start_time)*1000
-        print(str(timeSort)+'milisegundos')
     elif int(inputs[0])==6:
         departamento=input('Ingrese el departamento que desea buscar:\n')
-        start_time = time.process_time()
         obrasDepartamento=obrasPorDepartamento(catalogo,departamento)
         print('El total de obras que pertenecen al departamento ingresado son '+str(lt.size(obrasDepartamento[0]))+'\n')
         print('El peso total de las obras es '+str(obrasDepartamento[1])+' kg')
         printPrimerosCincoObrasDepartamento(catalogo,obrasDepartamento[0]) 
-        stop_time= time.process_time()
-        timeSort= (stop_time-start_time)*1000
-        print(str(timeSort)+'milisegundos')
     elif int(inputs[0])==7:
         print('Ordenando obras por fecha...') 
         obrasByDate=controller.sortArtworksByDate(catalogo)
         fechaInicio=int(input('Ingrese el anio inicial del rango:\n'))
         fechaFin=int(input('Ingrese el anio final del rango:\n'))
         area=int(input('Ingrese el area disponible para cuadros y fotos:\n'))
-        start_time = time.process_time()
         obrasRango=nuevaExposicion(obrasByDate,fechaInicio,fechaFin,area)
         print ('\nEl numero de obras creadas en ese rango de fechas son '+str(lt.size(obrasRango[0]))+'\n')
         print('El numero de obras a mostrar son '+ str(lt.size(obrasRango[1]))+'\n')
         print('El area aproximada usada para la exposicion es '+str(round(obrasRango[2],2))+' m^2'+'\n')
         printObrasAExponer(catalogo,obrasRango[1])
-        stop_time= time.process_time()
-        timeSort= (stop_time-start_time)*1000
-        print(str(timeSort)+'milisegundos')
     else:
         sys.exit(0)
 sys.exit(0)
