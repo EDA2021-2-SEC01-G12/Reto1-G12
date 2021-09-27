@@ -26,6 +26,8 @@ import controller
 import time
 from DISClib.ADT import list as lt
 assert cf
+default_limit = 1000
+sys.setrecursionlimit(default_limit*10)
 
 
 """

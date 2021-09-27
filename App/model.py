@@ -357,7 +357,7 @@ def sortArtworks(catalogo):
 
 def sortArtists(catalogo):
     cat=catalogo["artistas"]
-    artistasOrdenados=ms.sort(cat,cmpArtistByBirthDate)
+    artistasOrdenados=sa.sort(cat,cmpArtistByBirthDate)
     return artistasOrdenados
 
 def sortArtworksByMedium(catalogo):
@@ -365,11 +365,11 @@ def sortArtworksByMedium(catalogo):
     return obrasOrdenadas
 
 def sortArtistByNationality(catalogo):
-    artistsNationality=ms.sort(catalogo,cmpArtistByNationality)
+    artistsNationality=qs.sort(catalogo,cmpArtistByNationality)
     return artistsNationality
 
 def sortNationalityByNumber(catalogo):
-    return ms.sort(catalogo,cmpArtistByNationalityNumber)
+    return qs.sort(catalogo,cmpArtistByNationalityNumber)
 
 def sortArtworksByDate(catalogo):
     cat=catalogo['obras']
